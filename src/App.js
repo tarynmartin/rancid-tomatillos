@@ -60,9 +60,6 @@ class App extends Component {
       <main className="App">
       <header className="App-header">
         <h1>Rancid Tomatillos</h1>
-        {page === 'loggedin' &&
-          <h2>Hello {this.state.userName}!</h2>
-        }
         <button className='login-btn' onClick={this.showLogin}>Login</button>
       </header>
       {page === 'home' &&
@@ -77,6 +74,7 @@ class App extends Component {
       {
         page === 'loggedIn' &&
         <Movies
+          user={this.state.userName}
           movies={this.state.movies}
           error={this.state.error}
         />
