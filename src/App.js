@@ -58,10 +58,10 @@ class App extends Component {
     const page = this.state.pageView;
     return (
       <main className="App">
-      <header className="App-header">
-        <h1>Rancid Tomatillos</h1>
-        <button className='login-btn' onClick={this.showLogin}>Login</button>
-      </header>
+      <Header 
+        loginBtn={this.showLogin}
+        pageView={this.pageView}
+      />
       {page === 'home' &&
         <Movies
           movies={this.state.movies}
