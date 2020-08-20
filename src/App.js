@@ -9,14 +9,14 @@ class App extends Component {
     super(props);
     this.state = {
       movies: [],
-      error: ''
+      error: '',
     }
   }
   componentDidMount() {
     fetch("https:rancid-tomatillos.herokuapp.com/api/v2/movies")
       .then(response => response.json())
       .then(data => this.setState({movies: data.movies}))
-      .catch(error => this.setState.error = 'STELLLLLLAAAAAA');
+      .catch(error => this.setState({ error: "STELLLLAAAA"}));
   }
 
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
       <main className="App">
         <Header />
         <Movies movies={this.state.movies}/>
-        {this.state.error && <h2>{this.state.error}</h2>}
+        {this.state.error && <h2>Hello World!</h2>}
       </main>
     )
   }
