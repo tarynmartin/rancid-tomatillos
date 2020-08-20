@@ -10,6 +10,7 @@ class Header extends Component {
     return (
       <header className="App-header">
         <h1>Rancid Tomatillos</h1>
+        <button>Login</button>
       </header>
     )
   }

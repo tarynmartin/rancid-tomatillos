@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './Header'
+import Movies from './Movies'
+// import MovieCard from './MovieCard'
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       movies: [],
       error: '',
@@ -21,6 +23,7 @@ class App extends Component {
     return (
       <main className="App">
         <Header />
+        <Movies movies={this.state.movies}/>
         {this.state.error && <h2>Hello World!</h2>}
       </main>
     )
