@@ -38,14 +38,14 @@ class App extends Component {
         this.setState({
           pageView: 'loggedIn',
           login: true,
-          userId: json.id,
-          userName: json.name,
-          userEmail: json.email,
+          userId: json.user.id,
+          userName: json.user.name,
+          userEmail: json.user.email,
         });
       })
       // welcome for user and logout button once logged in?
       .catch(err => {
-        this.setState({ loginError: 'Oh no! Please enter a valid email and password to login.'});
+        this.setState({ error: 'Oh no! Please enter a valid email and password to login.'});
         console.log('it failed');
       });
   }
