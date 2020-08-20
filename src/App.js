@@ -6,15 +6,23 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      movies: []
+      movies: [],
+      error: ''
     }
+  }
+  componentDidMount() {
+    fetch("https:rancid-tomatillos.herokuapp.com/api/v2/movies")
+      .then(response => response.json())
+      .then(data => this.setState({movies: data.movies}))
+      .catch(error => this.state.error = 'STELLLLLLAAAAAA');
   }
 
   render() {
     return (
-      <div className="App">
+      <main className="App">
         <Header />
-      </div>
+        {this.state.error && <h2>{this.state.error}</h2>}
+      </main>
     )
   }
 }
