@@ -24,7 +24,7 @@ class App extends Component {
       <main className="App">
         <Header />
         <Movies movies={this.state.movies}/>
-        {this.state.error && <h2>Hello World!</h2>}
+        {this.state.error && <h2>{this.state.error}</h2>}
       </main>
     )
   }
