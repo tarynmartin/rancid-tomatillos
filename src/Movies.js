@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Movies.css';
+import MovieCard from './MovieCard.js';
 
-class Movies extends Component {
-  constructor() {
-    super()
-  }
-
-  render() {
-    return(
-      
-    )
-  }
+const Movies = (props) => {
+  return (
+    <section className="movies-container">
+      {
+        props.movies.map(movie => {
+          return <MovieCard movie = {movie} />
+        })
+      }
+    </section>
+  )
 }
+
+export default Movies;
