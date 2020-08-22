@@ -62,38 +62,26 @@ class App extends Component {
     const page = this.state.pageView;
     return (
       <main className="App">
+      <Header
+        loginBtn={this.showLogin}
+        logoutBtn={this.logoutUser}
+        pageView={page}
+      />
       {page === 'home' &&
-        <div>
-          <Header
-            loginBtn={this.showLogin}
-            pageView={page}
-          />
-          <Movies
-            movies={this.state.movies}
-            error={this.state.error}
-            />
-        </div>
+        <Movies
+          movies={this.state.movies}
+          error={this.state.error}
+        />
       }
       {page === 'login' &&
-        <div>
-          <Header
-            pageView={page}
-          />
-          <Login submitLogin={this.submitPostRequest}/>
-        </div>
+        <Login submitLogin={this.submitPostRequest}/>
       }
       {page === 'loggedIn' &&
-        <div>
-          <Header
-            logoutBtn={this.logoutUser}
-            pageView={page}
-          />
-          <Movies
-            user={this.state.userName}
-            movies={this.state.movies}
-            error={this.state.error}
-          />
-        </div>
+        <Movies
+          user={this.state.userName}
+          movies={this.state.movies}
+          error={this.state.error}
+        />
       }
       </main>
     )
