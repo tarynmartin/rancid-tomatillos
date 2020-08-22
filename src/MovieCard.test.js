@@ -9,8 +9,6 @@ describe('MovieCard component', () => {
       movie={{"id":1,"poster_path":"https://image.tmdb.org.jpg","backdrop_path":"https://image.tmdb.org/.jpg","title":"Greenland","average_rating":9,"release_date":"2020-07-29"}}
       />);
 
-    screen.debug();
-
     const title = screen.getByText('Greenland');
     const average_rating = screen.getByText("9");
 
