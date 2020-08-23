@@ -1,0 +1,6 @@
+.login {
+  display: flex;
+  justify-content: space-between;
+  padding: 5%;
+  border: 1px solid #000;
+}
