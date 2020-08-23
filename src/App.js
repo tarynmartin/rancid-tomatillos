@@ -70,9 +70,9 @@ class App extends Component {
         backdrop_path: data.movie.backdrop_path,
         release_date: data.movie.release_date,
         overview: data.movie.overview,
-        genres: data.movie.genres,
-        budget: data.movie.budget,
-        revenue: data.movie.revenue,
+        genres: data.movie.genres.join(', '),
+        budget: data.movie.budget.toLocaleString(),
+        revenue: data.movie.revenue.toLocaleString(),
         runtime: data.movie.runtime,
         tagline: data.movie.tagline,
         average_rating: data.movie.average_rating,}))
@@ -90,9 +90,6 @@ class App extends Component {
   showMovieInfo = (movieID) => {
     this.setState({pageView: 'movie-show', movieId: movieID});
     this.getMovieInfo(movieID);
-    // send a get request for all movie information
-    // change screen to show movie information
-    console.log('we got here')
   }
 
   render() {
