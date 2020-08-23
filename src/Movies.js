@@ -12,7 +12,8 @@ const Movies = (props) => {
         <section className="movies-container">
           {
             props.movies.map(movie => {
-              return <MovieCard movie = {movie} />
+              return (<MovieCard
+                movie = {movie} showMovieInfo={props.showMovieInfo}/>)
             })
           }
         </section>
@@ -23,7 +24,9 @@ const Movies = (props) => {
       <section className="movies-container">
         {
           props.movies.map(movie => {
-            return <MovieCard movie = {movie} />
+            return (<MovieCard
+              movie = {movie}
+              showMovieInfo={props.showMovieInfo}/>)
           })
         }
       </section>
