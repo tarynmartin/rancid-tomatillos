@@ -1,10 +1,6 @@
 import React from 'react';
 
 const MovieShow = (props) => {
-  const genres = props.genres;
-  //const joinedGenres = genres.join();
-  console.log(genres);
-  // const genres = props.genres.join(', ')
   return (
     <div>
       <h1>{props.title}</h1>
@@ -15,8 +11,8 @@ const MovieShow = (props) => {
       <h3>Release Date: {props.releaseDate}</h3>
       <p>Genres: {props.genres}</p>
       <p>{props.overview}</p>
-      <h4>Budget: {props.budget}</h4>
-      <h4>Revenue: {props.revenue}</h4>
+      <h4>Budget: ${props.budget}</h4>
+      <h4>Revenue: ${props.revenue}</h4>
     </div>
   )
 }
