@@ -123,7 +123,19 @@ class App extends Component {
         />
       }
       {page === 'movie-show' &&
-        <MovieShow />
+        <MovieShow
+          title={this.state.movieTitle}
+          poster={this.state.poster_path}
+          backdrop={this.state.backdrop_path}
+          releaseDate={this.state.release_date}
+          overview={this.state.overview}
+          genres={this.state.genres}
+          budget={this.state.budget}
+          revenue={this.state.revenue}
+          runtime={this.state.runtime}
+          tagline={this.state.tagline}
+          avgRating={this.state.average_rating}
+        />
       }
       </main>
     )
