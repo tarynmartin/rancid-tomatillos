@@ -3,3 +3,8 @@
   border: 3px solid black;
   padding: 10px;
 }
+
+.movie-poster {
+  height: 150px;
+  width: 100px;
+}
