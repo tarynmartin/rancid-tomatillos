@@ -54,25 +54,29 @@ class App extends Component {
     this.setState({pageView: 'login'})
   }
 
+  logoutUser = () => {
+    this.setState({pageView: 'home', login: false, userId: null, userName: '', userEmail: ''})
+  }
+
   render() {
     const page = this.state.pageView;
     return (
       <main className="App">
-      <Header 
+      <Header
         loginBtn={this.showLogin}
-        pageView={this.pageView}
+        logoutBtn={this.logoutUser}
+        pageView={page}
       />
       {page === 'home' &&
         <Movies
           movies={this.state.movies}
           error={this.state.error}
-          />
+        />
       }
       {page === 'login' &&
         <Login submitLogin={this.submitPostRequest}/>
       }
-      {
-        page === 'loggedIn' &&
+      {page === 'loggedIn' &&
         <Movies
           user={this.state.userName}
           movies={this.state.movies}
