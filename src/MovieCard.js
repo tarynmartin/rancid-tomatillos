@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './MovieCard.css';
-//import MovieShow from './MovieShow'
 
 class MovieCard extends Component{
   constructor(props) {
