@@ -12,8 +12,6 @@ describe('Login', () => {
     fireEvent.change(screen.getByPlaceholderText('Email'), {target: {value: 'ken@blah.com'}});
     fireEvent.change(screen.getByPlaceholderText('Password'), {target: {value: '67'}});
 
-    screen.debug();
-
     expect(screen.getByPlaceholderText('Email').value).toEqual('ken@blah.com');
     expect(screen.getByPlaceholderText('Password').value).toEqual('67');
   });
@@ -37,5 +35,7 @@ describe('Login', () => {
     expect(mockPostLogin).toBeCalledTimes(1);
     expect(mockPostLogin).toBeCalledWith(mockNewLogin);
   });
-  // sad path for bad login attempt
+  it('should not let a user login with bad data', () => {
+    // need to wait to check how to test network requests.
+});
 });
