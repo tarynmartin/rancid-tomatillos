@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { getMovies, loginUser, getMovieInfo } from './apiCalls.js'
 import Header from './Header'
 import Movies from './Movies'
 import Login from './Login'
@@ -31,21 +32,13 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    fetch("https:rancid-tomatillos.herokuapp.com/api/v2/movies")
-      .then(response => response.json())
+    getMovies()
       .then(data => this.setState({movies: data.movies}))
       .catch(error => this.setState({ error: "STELLLLAAAA"}));
   }
 
   submitPostRequest = (loginInfo) => {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', {
-      method: 'POST',
-      headers: {
-      	'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(loginInfo),
-    })
-      .then(response => response.json())
+    loginUser(loginInfo)
       .then(json => {
         this.setState({
           pageView: 'loggedIn',
@@ -60,10 +53,8 @@ class App extends Component {
         console.log('it failed');
       });
   }
-  getMovieInfo(movieId) {
-    console.log(movieId);
-    fetch(`https:rancid-tomatillos.herokuapp.com/api/v2/movies/${movieId}`)
-      .then(response => response.json())
+  getMovieInfo = (movieId) => {
+    getMovieInfo(movieId)
       .then(data => this.setState({
         movieTitle: data.movie.title,
         poster_path: data.movie.poster_path,
