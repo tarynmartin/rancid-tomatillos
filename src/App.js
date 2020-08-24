@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getMovies, loginUser, getMovieInfo } from './apiCalls.js'
 import Header from './Header'
 import Movies from './Movies'
 import Login from './Login'
 import MovieShow from './MovieShow'
+import { getMovies, loginUser, getMovieInfo } from './apiCalls.js'
 
 class App extends Component {
   constructor(props) {
