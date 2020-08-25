@@ -28,8 +28,8 @@ describe('Movies', () => {
 
     const title1 = screen.getByText('Greenland');
     const title2 = screen.getByText('Temptations');
-    const rating1 = screen.getByText('9');
-    const rating2 = screen.getByText('3');
+    const rating1 = screen.getByText('9.00');
+    const rating2 = screen.getByText('3.00');
 
     expect(title1).toBeInTheDocument();
     expect(title2).toBeInTheDocument();
@@ -49,8 +49,8 @@ describe('Movies', () => {
     const displayedUser = screen.getByText('Hello Ken!');
     const title1 = screen.getByText('Greenland');
     const title2 = screen.getByText('Temptations');
-    const rating1 = screen.getByText('9');
-    const rating2 = screen.getByText('3');
+    const rating1 = screen.getByText('9.00');
+    const rating2 = screen.getByText('3.00');
 
     expect(displayedUser).toBeInTheDocument();
     expect(title1).toBeInTheDocument();
