@@ -4,7 +4,7 @@ import Header from './Header'
 import Movies from './Movies'
 import Login from './Login'
 import MovieShow from './MovieShow'
-import { getMovies, loginUser, getMovieInfo } from './apiCalls.js'
+import { getMovies, loginUser, getMovieInfo, retrieveUserRatings } from './apiCalls.js'
 
 class App extends Component {
   constructor(props) {
@@ -29,12 +29,26 @@ class App extends Component {
       runtime: null,
       tagline: '',
       average_rating: null,
+      userRatings: []
     }
   }
   componentDidMount() {
     getMovies()
       .then(data => this.setState({movies: data.movies}))
       .catch(error => this.setState({ error: "STELLLLAAAA"}));
+  }
+
+  getUserRatings = (userId) => {
+    retrieveUserRatings(userId)
+      .then(ratings => {
+        this.setState({ userRatings: ratings.ratings })
+      })
+      .catch(error => {
+        this.setState({
+          pageView: 'movies',
+          error: 'Looks like you haven\'t rated this movie yet!'
+        })
+      })
   }
 
   submitPostRequest = (loginInfo) => {
@@ -47,6 +61,9 @@ class App extends Component {
           userName: json.user.name,
           userEmail: json.user.email,
         });
+      })
+      .then(userData => {
+        this.getUserRatings(this.state.userId);
       })
       .catch(err => {
         this.setState({ error: 'Oh no! Please enter a valid email and password to login.'});
@@ -125,6 +142,7 @@ class App extends Component {
           runtime={this.state.runtime}
           tagline={this.state.tagline}
           avgRating={this.state.average_rating}
+          //userRatings={this.getUserRatings}
         />
       }
       </main>
