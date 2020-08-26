@@ -66,7 +66,7 @@ class App extends Component {
         revenue: data.movie.revenue.toLocaleString(),
         runtime: data.movie.runtime,
         tagline: data.movie.tagline,
-        average_rating: data.movie.average_rating,}))
+        average_rating: data.movie.average_rating.toFixed(2),}))
       .catch(error => this.setState({ error: "Sorry, we couldn't find that movie"}));
   }
 

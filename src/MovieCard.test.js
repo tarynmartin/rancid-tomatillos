@@ -1,6 +1,6 @@
 import React from 'react';
 import  MovieCard from './MovieCard';
-import { screen, fireEvent, render } from '@testing-library/react';
+  import { screen, fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 describe('MovieCard component', () => {
@@ -10,7 +10,7 @@ describe('MovieCard component', () => {
       />);
 
     const title = screen.getByText('Greenland');
-    const average_rating = screen.getByText("9");
+    const average_rating = screen.getByText("9.00");
 
     expect(title).toBeInTheDocument();
     expect(average_rating).toBeInTheDocument();
