@@ -113,6 +113,7 @@ class App extends Component {
       }
       {page === 'movie-show' &&
         <MovieShow
+          loggedIn={this.state.login}
           title={this.state.movieTitle}
           poster={this.state.poster_path}
           backdrop={this.state.backdrop_path}
