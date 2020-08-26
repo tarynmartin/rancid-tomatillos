@@ -18,3 +18,8 @@ export const getMovieInfo = (movieId) => {
   return fetch(`https:rancid-tomatillos.herokuapp.com/api/v2/movies/${movieId}`)
     .then(response => response.json())
 }
+
+export const retrieveUserRatings = (userID) => {
+  return fetch(`https:rancid-tomatillos.herokuapp.com/api/v2/users/${userID}/ratings`)
+    .then(response => response.json())
+}
