@@ -13,7 +13,9 @@ const Movies = (props) => {
           {
             props.movies.map(movie => {
               return (<MovieCard
-                movie = {movie} showMovieInfo={props.showMovieInfo}/>)
+                movie={movie} showMovieInfo={props.showMovieInfo}
+                key={movie.id}
+                />)
             })
           }
         </section>
@@ -26,7 +28,9 @@ const Movies = (props) => {
           props.movies.map(movie => {
             return (<MovieCard
               movie = {movie}
-              showMovieInfo={props.showMovieInfo}/>)
+              showMovieInfo={props.showMovieInfo}
+              key={movie.id}
+              />)
           })
         }
       </section>

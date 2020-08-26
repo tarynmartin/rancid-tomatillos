@@ -100,6 +100,7 @@ class App extends Component {
         loginBtn={this.showLogin}
         logoutBtn={this.logoutUser}
         pageView={page}
+        user={this.state.userName}
       />
       {page === 'home' &&
         <Movies
