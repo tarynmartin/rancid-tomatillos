@@ -8,18 +8,23 @@ class MovieShow extends Component{
     this.state = {
       userRating: null || this.props.userRating,
       error: '',
-      inputVisible: '' || this.props.ratingMatch
+      inputVisible: '' || this.props.ratingMatch,
+      checkedInput: ''
     }
   }
 
   submitRating = (event) => {
     event.preventDefault();
-    const newRating = {
-      movie_id: this.props.movieId,
-      rating: parseInt(this.state.userRating)
-    }
+    if (this.state.checkedInput === false) {
+      return alert('Please enter a valid number from 1 - 10, no decimals!')
+    } else {
+      const newRating = {
+        movie_id: this.props.movieId,
+        rating: parseInt(this.state.userRating)
+      }
 
-    this.sendPostRequest(newRating);
+      this.sendPostRequest(newRating);
+    }
   }
 
   sendPostRequest = (userRating) => {
@@ -32,13 +37,22 @@ class MovieShow extends Component{
       })
   }
 
-  // make sure input is between 1-10
-
-
   createRating = (event) => {
     const inputKey = event.target.name;
     const inputValue = event.target.value;
-    this.setState({[inputKey]: inputValue})
+    this.setState({checkedInput: this.checkInput(inputValue), [inputKey]: inputValue});
+  }
+
+  checkInput(inputValue) {
+    const userInput = +inputValue;
+    console.log(typeof userInput);
+    if (inputValue < 1 || inputValue > 10) {
+      return false;
+    } else if (Number.isInteger(userInput)) {
+      return true
+    } else {
+      return false;
+    }
   }
 
   render() {
@@ -64,7 +78,6 @@ class MovieShow extends Component{
         </div>
       )
     } else {
-      const inputField = this.state.inputVisible;
       return (
         <div>
           <h1>{this.props.title}</h1>
@@ -74,6 +87,7 @@ class MovieShow extends Component{
             <input
             type='number'
             name='userRating'
+            placeholder='1 - 10'
             value={this.state.userRating}
             onChange={this.createRating}
             />
