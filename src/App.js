@@ -30,7 +30,7 @@ class App extends Component {
       tagline: '',
       average_rating: null,
       userRatings: [],
-      ratingMatch: false,
+      ratingMatch: '',
       userRating: null
     }
   }
@@ -105,7 +105,7 @@ class App extends Component {
   checkForUserRating(movieId) {
     this.state.userRatings.find(movie => {
       if(movie.movie_id === movieId) {
-        this.setState({ userRating: movie.rating, ratingMatch: true})
+        this.setState({ userRating: movie.rating, ratingMatch: 'hidden'})
       }
     })
   }
