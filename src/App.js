@@ -105,7 +105,7 @@ class App extends Component {
   checkForUserRating(movieId) {
     this.state.userRatings.find(movie => {
       if(movie.movie_id === movieId) {
-        this.setState({ userRating: movie.rating, ratingMatch: 'hidden'})
+        this.setState({ userRating: movie.rating, ratingMatch: 'hidden', deleteVisible: 'delete-button'})
       }
     })
   }
@@ -157,6 +157,7 @@ class App extends Component {
           userRatings={this.state.userRatings}
           ratingMatch={this.state.ratingMatch}
           userRating={this.state.userRating}
+          deleteVisible={this.state.deleteVisible}
         />
       }
       </main>
