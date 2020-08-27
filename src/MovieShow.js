@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { submitUserRating } from './apiCalls';
+import { submitUserRating, deleteUserRating } from './apiCalls';
 import './MovieShow.css'
 
 class MovieShow extends Component{
@@ -10,7 +10,8 @@ class MovieShow extends Component{
       error: '',
       inputVisible: '' || this.props.ratingMatch,
       checkedInput: '',
-      deleteVisible: this.props.deleteVisible || 'hidden'
+      deleteVisible: this.props.deleteVisible || 'hidden',
+      ratingId: null
     }
   }
 
@@ -54,6 +55,26 @@ class MovieShow extends Component{
     } else {
       return false;
     }
+  }
+
+  deleteRating = () => {
+    const ratingId = this.findRatingId(this.props.userRatings);
+    this.sendDeleteRating(this.props.userId, ratingId);
+    this.props.getRatings(this.props.movieId);
+  }
+
+  sendDeleteRating= (userId, ratingId) => {
+    deleteUserRating(userId, ratingId)
+      .then(alert('Add a new rating!'))
+      .catch(error => {
+        alert('There looks like there has been an error. Unable to delete previous rating.')
+      })
+  }
+
+  findRatingId(usersRatings) {
+    let matchedRating = usersRatings.find(rating => rating.movie_id === this.props.movieId);
+
+    return matchedRating.id;
   }
 
   render() {
