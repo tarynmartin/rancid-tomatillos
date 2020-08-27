@@ -158,6 +158,7 @@ class App extends Component {
           ratingMatch={this.state.ratingMatch}
           userRating={this.state.userRating}
           deleteVisible={this.state.deleteVisible}
+          getRatings={this.showMovieInfo}
         />
       }
       </main>
