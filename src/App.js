@@ -67,7 +67,6 @@ class App extends Component {
       })
       .catch(err => {
         this.setState({ error: 'Oh no! Please enter a valid email and password to login.'});
-        console.log('it failed');
       });
   }
   getMovieInfo = (movieId) => {
