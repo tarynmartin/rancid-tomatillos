@@ -9,7 +9,8 @@ class MovieShow extends Component{
       userRating: null || this.props.userRating,
       error: '',
       inputVisible: '' || this.props.ratingMatch,
-      checkedInput: ''
+      checkedInput: '',
+      deleteVisible: this.props.deleteVisible || 'hidden'
     }
   }
 
@@ -82,7 +83,7 @@ class MovieShow extends Component{
         <div>
           <h1>{this.props.title}</h1>
           <h3>Average Rating: {this.props.avgRating}</h3>
-          <h3>Your Rating: {this.state.userRating}</h3>
+          <h3>Your Rating: {this.state.userRating}<button className={this.state.deleteVisible} onClick={this.deleteRating}>Delete Your Rating</button></h3>
           <h3 className={this.state.inputVisible}>Rate This Movie from 1-10!
             <input
             type='number'
