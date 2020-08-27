@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './Login';
+import App from './App';
+import Movies from './Movies';
 
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+jest.mock('./apiCalls.js');
+import { loginUser } from './apiCalls';
 
 describe('Login', () => {
   it('can let a user put in login information', () => {
@@ -35,7 +39,21 @@ describe('Login', () => {
     expect(mockPostLogin).toBeCalledTimes(1);
     expect(mockPostLogin).toBeCalledWith(mockNewLogin);
   });
-  it('should not let a user login with bad data', () => {
-    // need to wait to check how to test network requests.
-});
+  it('should not let a user login with bad data', async () => {
+    const mockShowMovieInfo = jest.fn();
+    const fakeLogin = loginUser.mockResolvedValue({
+      error: "Username or password is incorrect"
+    })
+
+    render(<Movies
+      user=''
+      movies= ''
+      error='Oh no! Please enter a valid email and password to login.'
+      showMovieInfo={mockShowMovieInfo}
+    />);
+
+    const errorMsg = await waitFor( () => screen.getByText('Oh no! Please enter a valid email and password to login.'));
+
+    expect(errorMsg).toBeInTheDocument();
+  });
 });

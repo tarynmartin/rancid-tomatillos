@@ -49,8 +49,7 @@ class App extends Component {
         });
       })
       .catch(err => {
-        this.setState({ error: 'Oh no! Please enter a valid email and password to login.'});
-        console.log('it failed');
+        this.setState({ pageView: 'home', error: 'Oh no! Please enter a valid email and password to login.'});
       });
   }
   getMovieInfo = (movieId) => {
@@ -67,7 +66,7 @@ class App extends Component {
         runtime: data.movie.runtime,
         tagline: data.movie.tagline,
         average_rating: data.movie.average_rating.toFixed(2),}))
-      .catch(error => this.setState({ error: "Sorry, we couldn't find that movie"}));
+      .catch(error => this.setState({ pageView: 'home', error: "Sorry, we couldn't find that movie"}));
   }
 
   showLogin = () => {
