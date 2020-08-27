@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { submitUserRating } from './apiCalls';
+import './MovieShow.css'
 
 class MovieShow extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      userRating: null,
-      error: ''
+      userRating: null || this.props.userRating,
+      error: '',
+      inputVisible: '' || this.props.ratingMatch
     }
   }
 
@@ -23,22 +25,15 @@ class MovieShow extends Component{
   sendPostRequest = (userRating) => {
     submitUserRating(this.props.userId, userRating)
       .then(newRating => {
-        this.setState({ userRating: newRating.rating.rating});
+        this.setState({ userRating: newRating.rating.rating, inputVisible: 'hidden'});
       })
-      .then(
-        this.clearInputs()
-      )
       .catch(error => {
         this.setState({error: 'You have already submitted a rating for this movie.'})
       })
   }
 
-  clearInputs() {
-    this.setState({userRating: null})
-  }
-
   // make sure input is between 1-10
-  //find movie id in user ratings, if found, return error message
+
 
   createRating = (event) => {
     const inputKey = event.target.name;
@@ -69,12 +64,13 @@ class MovieShow extends Component{
         </div>
       )
     } else {
+      const inputField = this.state.inputVisible;
       return (
         <div>
           <h1>{this.props.title}</h1>
           <h3>Average Rating: {this.props.avgRating}</h3>
           <h3>Your Rating: {this.state.userRating}</h3>
-          <h3>Rate This Movie from 1-10!
+          <h3 className={this.state.inputVisible}>Rate This Movie from 1-10!
             <input
             type='number'
             name='userRating'
