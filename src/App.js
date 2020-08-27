@@ -4,7 +4,7 @@ import Header from './Header'
 import Movies from './Movies'
 import Login from './Login'
 import MovieShow from './MovieShow'
-import { getMovies, loginUser, getMovieInfo } from './apiCalls.js'
+import { getMovies, loginUser, getMovieInfo, retrieveUserRatings } from './apiCalls.js'
 
 class App extends Component {
   constructor(props) {
@@ -29,12 +29,28 @@ class App extends Component {
       runtime: null,
       tagline: '',
       average_rating: null,
+      userRatings: [],
+      ratingMatch: '',
+      userRating: null
     }
   }
   componentDidMount() {
     getMovies()
       .then(data => this.setState({movies: data.movies}))
       .catch(error => this.setState({ error: "STELLLLAAAA"}));
+  }
+
+  getUserRatings = (userId) => {
+    retrieveUserRatings(userId)
+      .then(ratings => {
+        this.setState({ userRatings: ratings.ratings })
+      })
+      .catch(error => {
+        this.setState({
+          pageView: 'movies',
+          error: 'Looks like you haven\'t rated this movie yet!'
+        })
+      })
   }
 
   submitPostRequest = (loginInfo) => {
@@ -47,6 +63,9 @@ class App extends Component {
           userName: json.user.name,
           userEmail: json.user.email,
         });
+      })
+      .then(userData => {
+        this.getUserRatings(this.state.userId);
       })
       .catch(err => {
         this.setState({ pageView: 'home', error: 'Oh no! Please enter a valid email and password to login.'});
@@ -79,7 +98,16 @@ class App extends Component {
 
   showMovieInfo = (movieID) => {
     this.setState({pageView: 'movie-show', movieId: movieID});
+    this.checkForUserRating(movieID);
     this.getMovieInfo(movieID);
+  }
+
+  checkForUserRating(movieId) {
+    this.state.userRatings.find(movie => {
+      if(movie.movie_id === movieId) {
+        this.setState({ userRating: movie.rating, ratingMatch: 'hidden'})
+      }
+    })
   }
 
   render() {
@@ -112,6 +140,9 @@ class App extends Component {
       }
       {page === 'movie-show' &&
         <MovieShow
+          movieId={this.state.movieId}
+          userId={this.state.userId}
+          loggedIn={this.state.login}
           title={this.state.movieTitle}
           poster={this.state.poster_path}
           backdrop={this.state.backdrop_path}
@@ -123,6 +154,9 @@ class App extends Component {
           runtime={this.state.runtime}
           tagline={this.state.tagline}
           avgRating={this.state.average_rating}
+          userRatings={this.state.userRatings}
+          ratingMatch={this.state.ratingMatch}
+          userRating={this.state.userRating}
         />
       }
       </main>
