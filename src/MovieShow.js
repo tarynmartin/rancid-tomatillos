@@ -60,14 +60,16 @@ class MovieShow extends Component{
   deleteRating = () => {
     const ratingId = this.findRatingId(this.props.userRatings);
     this.sendDeleteRating(this.props.userId, ratingId);
-    this.props.getRatings(this.props.movieId);
   }
 
   sendDeleteRating= (userId, ratingId) => {
     deleteUserRating(userId, ratingId)
-      .then(alert('Add a new rating!'))
+      .then(response => {
+        console.log('Success: ', response)
+        this.props.getRatings(this.props.movieId)
+      })
       .catch(error => {
-        alert('There looks like there has been an error. Unable to delete previous rating.')
+        console.log(error)
       })
   }
 
