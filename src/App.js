@@ -130,6 +130,8 @@ class App extends Component {
       }
       {page === 'movie-show' &&
         <MovieShow
+          movieId={this.state.movieId}
+          userId={this.state.userId}
           loggedIn={this.state.login}
           title={this.state.movieTitle}
           poster={this.state.poster_path}
