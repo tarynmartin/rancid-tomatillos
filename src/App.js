@@ -29,7 +29,9 @@ class App extends Component {
       runtime: null,
       tagline: '',
       average_rating: null,
-      userRatings: []
+      userRatings: [],
+      ratingMatch: false,
+      userRating: null
     }
   }
   componentDidMount() {
@@ -96,7 +98,16 @@ class App extends Component {
 
   showMovieInfo = (movieID) => {
     this.setState({pageView: 'movie-show', movieId: movieID});
+    this.checkForUserRating(movieID);
     this.getMovieInfo(movieID);
+  }
+
+  checkForUserRating(movieId) {
+    this.state.userRatings.find(movie => {
+      if(movie.movie_id === movieId) {
+        this.setState({ userRating: movie.rating, ratingMatch: true})
+      }
+    })
   }
 
   render() {
@@ -143,7 +154,9 @@ class App extends Component {
           runtime={this.state.runtime}
           tagline={this.state.tagline}
           avgRating={this.state.average_rating}
-          //userRatings={this.getUserRatings}
+          userRatings={this.state.userRatings}
+          ratingMatch={this.state.ratingMatch}
+          userRating={this.state.userRating}
         />
       }
       </main>
