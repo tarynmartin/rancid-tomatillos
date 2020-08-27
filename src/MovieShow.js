@@ -6,30 +6,38 @@ class MovieShow extends Component{
     super(props);
     this.state = {
       userRating: null,
+      error: ''
     }
   }
-  // make sure input is between 1-10
+
   submitRating = (event) => {
     event.preventDefault();
     const newRating = {
       movie_id: this.props.movieId,
-      rating: this.state.userRating
+      rating: parseInt(this.state.userRating)
     }
-    //need to finish the POST and store the returned rating data in state to display
-    // create a catch for it
 
-    submitUserRating(this.props.userId, newRating);
-    this.clearInputs();
+    this.sendPostRequest(newRating);
+  }
+
+  sendPostRequest = (userRating) => {
+    submitUserRating(this.props.userId, userRating)
+      .then(newRating => {
+        this.setState({ userRating: newRating.rating.rating});
+      })
+      .then(
+        this.clearInputs()
+      )
+      .catch(error => {
+        this.setState({error: 'You have already submitted a rating for this movie.'})
+      })
   }
 
   clearInputs() {
     this.setState({userRating: null})
   }
 
-  // submitRating = (id, userRating) => {
-  //   this.submitUserRating(this.props.userId, newRating);
-  //   this.clearInputs();
-  // }
+  // make sure input is between 1-10
   //find movie id in user ratings, if found, return error message
 
   createRating = (event) => {
@@ -39,7 +47,13 @@ class MovieShow extends Component{
   }
 
   render() {
-    if (this.props.loggedIn === false) {
+    if (this.state.error !== "") {
+      return (
+        <div>
+          <h2>{this.state.error}</h2>
+        </div>
+      )
+    } else if (this.props.loggedIn === false) {
       return (
         <div>
           <h1>{this.props.title}</h1>
@@ -59,7 +73,7 @@ class MovieShow extends Component{
         <div>
           <h1>{this.props.title}</h1>
           <h3>Average Rating: {this.props.avgRating}</h3>
-          <h3>Your Rating: {this.props.userRating}</h3>
+          <h3>Your Rating: {this.state.userRating}</h3>
           <h3>Rate This Movie from 1-10!
             <input
             type='number'
