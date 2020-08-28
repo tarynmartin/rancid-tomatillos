@@ -1,31 +1,51 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render } from '@testing-library/react';
 import App from './App';
+import Login from './Login'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+jest.mock('./apiCalls.js');
+import { getMovies } from './apiCalls';
 
 describe('App', () => {
-  it('displays the login button & Movies Screen', () => {
+  it('displays movies from the server when App loads', async () => {
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+              id: 524047,
+              poster_path: "https://image.tmdb.org/.jpg",
+              backdrop_path: "https://image.tmdb.org/.jpg",
+              title: "Greenland",
+              average_rating: 4.833333333333333,
+              release_date: "2020-07-29"
+          },
+          {
+              id: 606234,
+              poster_path: "https://image.tmdb.org/.jpg",
+              backdrop_path: "https://image.tmdb.org/.jpg",
+              title: "Archive",
+              average_rating: 5.833333333333333,
+              release_date: "2020-08-13"
+          }
+      ]
+    });
     render(<App />);
 
+    const movieOne = await waitFor( () => screen.getByText('Greenland'));
+    const movieTwo = await waitFor( () => screen.getByText('Archive'));
 
+    expect(movieOne).toBeInTheDocument();
+    expect(movieTwo).toBeInTheDocument();
   });
-  it('displays the login screen on click', () => {
+  it('displays the login button', () => {
     render(<App />);
 
+    const button = screen.getByRole('button', {name: 'Login'});
 
+    expect(button).toBeInTheDocument();
   });
-  it('displays the logout button & Movies Screen on login', () => {
-    render(<App />);
-
-
-  });
-  // it('displays movie information when card is clicked', () => {
+  // it('should POST user information when called', () => {
   //   render(<App />);
   //
   //

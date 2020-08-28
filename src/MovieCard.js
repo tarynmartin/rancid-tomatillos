@@ -18,7 +18,7 @@ class MovieCard extends Component{
       <NavLink to={'/' + this.props.movie.id}>
         <div className="movie-card" onClick={this.showMovie}>
           <p>{this.props.movie.title}</p>
-          <p>{this.props.movie.average_rating}</p>
+          <p>{this.props.movie.average_rating.toFixed(2)}</p>
           <img src={this.props.movie.poster_path} className="movie-poster"/>
         </div>
       </NavLink>
