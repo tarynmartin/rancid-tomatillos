@@ -4,6 +4,7 @@ import Header from './Header'
 import Movies from './Movies'
 import Login from './Login'
 import MovieShow from './MovieShow'
+import { Route } from 'react-router-dom'
 
 class App extends Component {
   constructor(props) {
@@ -61,7 +62,6 @@ class App extends Component {
       });
   }
   getMovieInfo(movieId) {
-    console.log(movieId);
     fetch(`https:rancid-tomatillos.herokuapp.com/api/v2/movies/${movieId}`)
       .then(response => response.json())
       .then(data => this.setState({
@@ -96,44 +96,45 @@ class App extends Component {
     const page = this.state.pageView;
     return (
       <main className="App">
-      <Header
-        loginBtn={this.showLogin}
-        logoutBtn={this.logoutUser}
-        pageView={page}
-      />
-      {page === 'home' &&
-        <Movies
-          movies={this.state.movies}
-          error={this.state.error}
-          showMovieInfo={this.showMovieInfo}
+        <Header
+          loginBtn={this.showLogin}
+          logoutBtn={this.logoutUser}
+          pageView={page}
         />
-      }
-      {page === 'login' &&
-        <Login submitLogin={this.submitPostRequest}/>
-      }
-      {page === 'loggedIn' &&
-        <Movies
-          user={this.state.userName}
-          movies={this.state.movies}
-          error={this.state.error}
-          showMovieInfo={this.showMovieInfo}
-        />
-      }
-      {page === 'movie-show' &&
-        <MovieShow
-          title={this.state.movieTitle}
-          poster={this.state.poster_path}
-          backdrop={this.state.backdrop_path}
-          releaseDate={this.state.release_date}
-          overview={this.state.overview}
-          genres={this.state.genres}
-          budget={this.state.budget}
-          revenue={this.state.revenue}
-          runtime={this.state.runtime}
-          tagline={this.state.tagline}
-          avgRating={this.state.average_rating}
-        />
-      }
+        {page === 'login' &&
+          <Login submitLogin={this.submitPostRequest}/>
+        }
+        {page === 'loggedIn' &&
+          <Movies
+            user={this.state.userName}
+            movies={this.state.movies}
+            error={this.state.error}
+            showMovieInfo={this.showMovieInfo}
+          />
+        }
+        <Route exact path='/'>
+          <Movies
+            user={this.state.userName}
+            movies={this.state.movies}
+            error={this.state.error}
+            showMovieInfo={this.showMovieInfo}
+          />
+        </Route>
+        <Route path='/:movie_id'>
+          <MovieShow
+            title={this.state.movieTitle}
+            poster={this.state.poster_path}
+            backdrop={this.state.backdrop_path}
+            releaseDate={this.state.release_date}
+            overview={this.state.overview}
+            genres={this.state.genres}
+            budget={this.state.budget}
+            revenue={this.state.revenue}
+            runtime={this.state.runtime}
+            tagline={this.state.tagline}
+            avgRating={this.state.average_rating}
+          />
+        </Route>
       </main>
     )
   }
