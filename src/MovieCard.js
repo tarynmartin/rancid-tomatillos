@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './MovieCard.css';
+import { NavLink } from 'react-router-dom'
 
 class MovieCard extends Component{
   constructor(props) {
@@ -14,11 +15,13 @@ class MovieCard extends Component{
   }
   render() {
     return (
-      <div className="movie-card" onClick={this.showMovie}>
-        <p>{this.props.movie.title}</p>
-        <p>{this.props.movie.average_rating}</p>
-        <img src={this.props.movie.poster_path} className="movie-poster"/>
-      </div>
+      <NavLink to={'/' + this.props.movie.id}>
+        <div className="movie-card" onClick={this.showMovie}>
+          <p>{this.props.movie.title}</p>
+          <p>{this.props.movie.average_rating}</p>
+          <img src={this.props.movie.poster_path} className="movie-poster"/>
+        </div>
+      </NavLink>
     )
   }
 }
