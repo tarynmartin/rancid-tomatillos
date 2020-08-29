@@ -35,6 +35,7 @@ class Login extends Component {
     return (
       <div className='login'>
         <input
+          className='login-input'
           type='text'
           placeholder='Email'
           name='userEmail'
@@ -42,13 +43,14 @@ class Login extends Component {
           onChange={this.createLoginEvent}
         />
         <input
+          className='login-input'
           type='password'
           placeholder='Password'
           name='userPassword'
           value={this.state.userPassword}
           onChange={this.createLoginEvent}
         />
-        <button onClick={this.submitUser}>Submit</button>
+        <button className='submit-btn' onClick={this.submitUser}>Submit</button>
       </div>
     )
   }

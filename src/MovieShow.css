@@ -1,3 +1,60 @@
 .hidden {
   display: none;
 }
+
+.movie-show {
+  background-color: #000000;
+  color: white;
+  width: 70%;
+  margin: 3% 15%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 8fr;
+  height: 100vh;
+}
+
+.btn-box {
+  display: flex;
+  grid-column: 1 / span 2
+}
+
+.back-btn {
+  font-size: calc(26px + 2vmin);
+  justify-content: flex-start;
+  padding: 8vh;
+}
+
+.movie-title {
+  padding-left: 22vw;
+  padding-top: 5vh;
+  font-size: calc(26px + 2vmin);
+}
+
+.avg-rating {
+  margin-top: 0;
+}
+
+.rating-input {
+  width: 7vw;
+  height: 6vh;
+}
+
+.rating-btn {
+  margin-left: 2vw;
+  justify-content: center;
+  border: none;
+  background-color: #000000;
+  color: white;
+  font-family: 'Skranji', cursive;
+  font-size: calc(14px + 2vmin);
+}
+
+.overview {
+  margin: 2vw 0;
+  font-size: 22px;
+}
+
+.poster-display,
+.movie-info {
+  font-size: 20px;
+}

@@ -10,14 +10,14 @@ class Header extends Component {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
-          <button onClick={this.props.logoutBtn}>Log Out</button>
+          <button className='login-out' onClick={this.props.logoutBtn}>Log Out</button>
         </header>
       )
     } else if (this.props.pageView === 'movie-show' && this.props.user != '') {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
-          <button onClick={this.props.logoutBtn}>Log Out</button>
+          <button className='login-out' onClick={this.props.logoutBtn}>Log Out</button>
         </header>
       )
     } else if (this.props.pageView === 'login') {
@@ -30,7 +30,7 @@ class Header extends Component {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
-          <button onClick={this.props.loginBtn}>Login</button>
+          <button className='login-out' onClick={this.props.loginBtn}>Login</button>
         </header>
       )
     }
