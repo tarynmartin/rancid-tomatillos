@@ -41,7 +41,6 @@ export const deleteUserRating = (userID, ratingID) => {
     method: 'DELETE',
     headers: {
     'Content-Type': 'application/json'
-    },
+  }
   })
-    .then(response => response.json())
 }
