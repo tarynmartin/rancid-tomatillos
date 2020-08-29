@@ -35,3 +35,12 @@ export const submitUserRating = (userID, ratingInfo) => {
       .then(response => response.json())
 
 }
+
+export const deleteUserRating = (userID, ratingID) => {
+  return fetch(`https:rancid-tomatillos.herokuapp.com/api/v2/users/${userID}/ratings/${ratingID}`, {
+    method: 'DELETE',
+    headers: {
+    'Content-Type': 'application/json'
+  }
+  })
+}
