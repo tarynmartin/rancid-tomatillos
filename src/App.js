@@ -96,6 +96,16 @@ class App extends Component {
     this.setState({pageView: 'home', login: false, userId: null, userName: '', userEmail: ''})
   }
 
+  showMovieInfoAfterDelete = (userId, movieId) => {
+    this.getUserRatings(userId);
+    this.getMovieInfo(movieId)
+  }
+
+  showMovieInfoAfterRating = (userId, movieId) => {
+    this.getUserRatings(userId);
+    this.showMovieInfo(movieId);
+  }
+
   showMovieInfo = (movieID) => {
     this.setState({pageView: 'movie-show', movieId: movieID});
     this.checkForUserRating(movieID);
@@ -158,7 +168,8 @@ class App extends Component {
           ratingMatch={this.state.ratingMatch}
           userRating={this.state.userRating}
           deleteVisible={this.state.deleteVisible}
-          getRatings={this.showMovieInfo}
+          getRatings={this.showMovieInfoAfterDelete}
+          changeAfterSubmit={this.showMovieInfoAfterRating}
         />
       }
       </main>
