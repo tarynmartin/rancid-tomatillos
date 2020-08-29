@@ -42,6 +42,19 @@ describe('MovieShow component', () => {
     expect(runtime).toBeInTheDocument()
     expect(tagline).toBeInTheDocument()
   });
+  // display when user logged in.
+  // delete onClick for delete button - 1-test that delete rating is called; 2-check that all of the other things were called when clicked
+  // test delete fetch call
+  // test update fetch call
+  // delete onClick for Submit
+  // display error message
+  // test any time state changes - wrappers?
+  // update state anytime a change is called (ex: should update state when deleteRating is invoked)
+  // invoke and render; do asserts
+  // fireEvent click
+  // new assertions for what should be changed
+
+
   // not sure how to do the below one
   //where to put this test? Movies or App?
   // it('retrieve movie info for selected movie from the server when selected', async () => {

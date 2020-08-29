@@ -98,6 +98,16 @@ class App extends Component {
     this.setState({pageView: 'home', login: false, userId: null, userName: '', userEmail: ''})
   }
 
+  showMovieInfoAfterDelete = (userId, movieId) => {
+    this.getUserRatings(userId);
+    this.getMovieInfo(movieId)
+  }
+
+  showMovieInfoAfterRating = (userId, movieId) => {
+    this.getUserRatings(userId);
+    this.showMovieInfo(movieId);
+  }
+
   showMovieInfo = (movieID) => {
     this.setState({pageView: 'movie-show', movieId: movieID});
     this.checkForUserRating(movieID);
@@ -107,7 +117,7 @@ class App extends Component {
   checkForUserRating(movieId) {
     this.state.userRatings.find(movie => {
       if(movie.movie_id === movieId) {
-        this.setState({ userRating: movie.rating, ratingMatch: 'hidden'})
+        this.setState({ userRating: movie.rating, ratingMatch: 'hidden', deleteVisible: 'delete-button'})
       }
     })
   }
@@ -161,9 +171,13 @@ class App extends Component {
           userRatings={this.state.userRatings}
           ratingMatch={this.state.ratingMatch}
           userRating={this.state.userRating}
+          deleteVisible={this.state.deleteVisible}
+          getRatings={this.showMovieInfoAfterDelete}
+          changeAfterSubmit={this.showMovieInfoAfterRating}
           />
          }
         </Route>
+
       </main>
     )
   }
