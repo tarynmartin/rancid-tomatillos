@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { submitUserRating, deleteUserRating } from './apiCalls';
 import './MovieShow.css'
+import { NavLink } from 'react-router-dom';
 
 class MovieShow extends Component{
   constructor(props) {
@@ -107,6 +108,7 @@ class MovieShow extends Component{
     } else if (this.props.loggedIn === false) {
       return (
         <div>
+          <NavLink exact to='/'>Back</NavLink>
           <h1>{this.props.title}</h1>
           <h3>Average Rating: {this.props.avgRating}</h3>
           <img src={this.props.poster} className="movie-poster"/>
@@ -122,6 +124,7 @@ class MovieShow extends Component{
     } else {
       return (
         <div>
+          <NavLink exact to='/'>Back</NavLink>
           <h1>{this.props.title}</h1>
           <h3>Average Rating: {this.props.avgRating}</h3>
           <h3>Your Rating: {this.state.userRating}<button className={this.state.deleteVisible} onClick={this.deleteRating}>Delete Your Rating</button></h3>

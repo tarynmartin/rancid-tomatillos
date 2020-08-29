@@ -4,6 +4,7 @@ import Header from './Header'
 import Movies from './Movies'
 import Login from './Login'
 import MovieShow from './MovieShow'
+import { Route } from 'react-router-dom'
 import { getMovies, loginUser, getMovieInfo, retrieveUserRatings } from './apiCalls.js'
 
 class App extends Component {
@@ -71,6 +72,7 @@ class App extends Component {
         this.setState({ pageView: 'home', error: 'Oh no! Please enter a valid email and password to login.'});
       });
   }
+
   getMovieInfo = (movieId) => {
     getMovieInfo(movieId)
       .then(data => this.setState({
@@ -124,32 +126,34 @@ class App extends Component {
     const page = this.state.pageView;
     return (
       <main className="App">
-      <Header
-        loginBtn={this.showLogin}
-        logoutBtn={this.logoutUser}
-        pageView={page}
-        user={this.state.userName}
-      />
-      {page === 'home' &&
-        <Movies
+        <Header
+          loginBtn={this.showLogin}
+          logoutBtn={this.logoutUser}
+          pageView={page}
+        />
+        {page === 'login' &&
+          <Login submitLogin={this.submitPostRequest}/>
+        }
+        {page === 'loggedIn' &&
+          <Movies
+            user={this.state.userName}
+            movies={this.state.movies}
+            error={this.state.error}
+            showMovieInfo={this.showMovieInfo}
+          />
+        }
+        <Route exact path='/'>
+         {page === 'home' &&
+          <Movies
           movies={this.state.movies}
           error={this.state.error}
           showMovieInfo={this.showMovieInfo}
-        />
-      }
-      {page === 'login' &&
-        <Login submitLogin={this.submitPostRequest}/>
-      }
-      {page === 'loggedIn' &&
-        <Movies
-          user={this.state.userName}
-          movies={this.state.movies}
-          error={this.state.error}
-          showMovieInfo={this.showMovieInfo}
-        />
-      }
-      {page === 'movie-show' &&
-        <MovieShow
+          />
+         }
+        </Route>
+        <Route path='/:movie_id'>
+         {page === 'movie-show' &&
+          <MovieShow
           movieId={this.state.movieId}
           userId={this.state.userId}
           loggedIn={this.state.login}
@@ -170,8 +174,10 @@ class App extends Component {
           deleteVisible={this.state.deleteVisible}
           getRatings={this.showMovieInfoAfterDelete}
           changeAfterSubmit={this.showMovieInfoAfterRating}
-        />
-      }
+          />
+         }
+        </Route>
+
       </main>
     )
   }
