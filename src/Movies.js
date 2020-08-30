@@ -4,11 +4,11 @@ import MovieCard from './MovieCard.js';
 
 const Movies = (props) => {
   if (props.error !== '') {
-    return <h2>{props.error}</h2>
+    return <h2 className='message-bar'>{props.error}</h2>
   } else if (props.user) {
     return (
       <div>
-        <h2>Hello {props.user}!</h2>
+        <h2 className='message-bar'>Hello {props.user}!</h2>
         <section className="movies-container">
           {
             props.movies.map(movie => {
