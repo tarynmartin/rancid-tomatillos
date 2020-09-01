@@ -33,8 +33,9 @@ class CommentForm extends Component {
   render() {
     return (
       <div className='comment-form'>
+        <h2 className='form-title'>Comment Form</h2>
         <input
-          className='author-input'
+          className='comment-input'
           type='text'
           placeholder='Name'
           name='author'
@@ -49,7 +50,7 @@ class CommentForm extends Component {
         value={this.state.userComment}
         onChange={this.createComment}
         />
-        <button className='submit-btn' onClick={this.submitComment}>Submit</button>
+        <button className='comment-submit-btn' onClick={this.submitComment}>Submit</button>
       </div>
     )
   }

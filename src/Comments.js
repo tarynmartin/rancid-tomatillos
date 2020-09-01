@@ -35,8 +35,8 @@ class Comments extends Component {
   render() {
     if (this.props.login) {
       return (
-        <div>
-          <h1>Comments</h1>
+        <div className='comments'>
+          <h1 className='comment-title'>Comments</h1>
           <CommentForm                   addComment={this.addComment}
           movieId={this.props.movieId}
           addToComments={this.addToComments}
@@ -52,8 +52,8 @@ class Comments extends Component {
       )
     } else {
       return (
-        <div>
-          <h1>Comments</h1>
+        <div className='comments'>
+          <h1 className='comment-title'>Comments</h1>
           {this.state.comments.map(comment => {
             return (<Comment
                 comment={comment.comment}
