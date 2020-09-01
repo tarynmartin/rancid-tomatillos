@@ -122,6 +122,15 @@ class App extends Component {
     })
   }
 
+  changePageview = () => {
+    if(this.state.login === false) {
+      this.setState({pageView: 'home'})
+    } else if (this.state.login === true) {
+      this.setState({pageView: 'loggedIn'})
+    }
+
+  }
+
   render() {
     const page = this.state.pageView;
     return (
@@ -130,6 +139,7 @@ class App extends Component {
           loginBtn={this.showLogin}
           logoutBtn={this.logoutUser}
           pageView={page}
+          login={this.state.login}
         />
         {page === 'login' &&
           <Login submitLogin={this.submitPostRequest}/>
@@ -142,15 +152,6 @@ class App extends Component {
             showMovieInfo={this.showMovieInfo}
           />
         }
-        <Route exact path='/'>
-         {page === 'home' &&
-          <Movies
-          movies={this.state.movies}
-          error={this.state.error}
-          showMovieInfo={this.showMovieInfo}
-          />
-         }
-        </Route>
         <Route path='/:movie_id'>
          {page === 'movie-show' &&
           <MovieShow
@@ -174,10 +175,19 @@ class App extends Component {
           deleteVisible={this.state.deleteVisible}
           getRatings={this.showMovieInfoAfterDelete}
           changeAfterSubmit={this.showMovieInfoAfterRating}
+          changePage={this.changePageview}
           />
          }
         </Route>
-
+        <Route exact path='/'>
+         {page === 'home' &&
+          <Movies
+          movies={this.state.movies}
+          error={this.state.error}
+          showMovieInfo={this.showMovieInfo}
+          />
+         }
+        </Route>
       </main>
     )
   }
