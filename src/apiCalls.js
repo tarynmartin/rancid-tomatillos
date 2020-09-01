@@ -44,3 +44,25 @@ export const deleteUserRating = (userID, ratingID) => {
   }
   })
 }
+
+export const getComments = (movieId) => {
+  return fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`)
+    .then(response => response.json())
+}
+
+export const postComment = (newComment) => {
+  return fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`, {
+    method: POST,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newComment)
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw new Error('Something went wrong')
+      }
+    })
+}
