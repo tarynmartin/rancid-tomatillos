@@ -3,6 +3,7 @@ import './Movies.css';
 import MovieCard from './MovieCard.js';
 
 const Movies = (props) => {
+
   if (props.error !== '') {
     return <h2 className='message-bar'>{props.error}</h2>
   } else if (props.user) {
