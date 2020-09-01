@@ -1,0 +1,7 @@
+.comment-card {
+  background-color: white;
+  color: #000000;
+  width: 100%;
+  grid-column: 2;
+  border-radius: 6px;
+}
