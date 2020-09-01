@@ -9,3 +9,5 @@ const Comment = (props) => {
     </article>
   )
 }
+
+export default Comment;
