@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Comments from './Comments';
 import { submitUserRating, deleteUserRating } from './apiCalls';
 import './MovieShow.css'
 import { NavLink } from 'react-router-dom';
@@ -107,57 +108,69 @@ class MovieShow extends Component{
       )
     } else if (this.props.loggedIn === false) {
       return (
-        <div className='movie-show'>
-          <div className='btn-box'>
-            <NavLink className='back-btn' exact to='/'>Back</NavLink>
-            <h1 className='movie-title'>{this.props.title}</h1>
+        <div className='movies-comments'>
+          <div className='movie-show'>
+            <div className='btn-box'>
+              <NavLink className='back-btn' exact to='/'>Back</NavLink>
+              <h1 className='movie-title'>{this.props.title}</h1>
+            </div>
+            <div className='poster-display'>
+              <img src={this.props.poster} className="movie-poster"/>
+              <h2>{this.props.tagline}</h2>
+              <h3>Runtime: {this.props.runtime} minutes</h3>
+            </div>
+            <div className='movie-info'>
+              <h3>Average Rating: {this.props.avgRating}</h3>
+              <h3>Release Date: {this.props.releaseDate}</h3>
+              <p>Genres: {this.props.genres}</p>
+              <p className='overview'>{this.props.overview}</p>
+              <h4>Budget: ${this.props.budget}</h4>
+              <h4>Revenue: ${this.props.revenue}</h4>
+            </div>
           </div>
-          <div className='poster-display'>
-            <img src={this.props.poster} className="movie-poster"/>
-            <h2>{this.props.tagline}</h2>
-            <h3>Runtime: {this.props.runtime} minutes</h3>
-          </div>
-          <div className='movie-info'>
-            <h3>Average Rating: {this.props.avgRating}</h3>
-            <h3>Release Date: {this.props.releaseDate}</h3>
-            <p>Genres: {this.props.genres}</p>
-            <p className='overview'>{this.props.overview}</p>
-            <h4>Budget: ${this.props.budget}</h4>
-            <h4>Revenue: ${this.props.revenue}</h4>
-          </div>
+          <Comments
+            login={this.props.loggedIn}
+            movieId={this.props.movieId}
+          />
         </div>
       )
     } else {
       return (
-        <div className='movie-show'>
-          <div className='btn-box'>
-            <NavLink className='back-btn' exact to='/'>Back</NavLink>
-            <h1 className='movie-title'>{this.props.title}</h1>
+        <div className='movies-comments'>
+          <div className='movie-show'>
+            <div className='btn-box'>
+              <NavLink className='back-btn' exact to='/'>Back</NavLink>
+              <h1 className='movie-title'>{this.props.title}</h1>
+            </div>
+            <div className='poster-display'>
+              <img src={this.props.poster} className="movie-poster"/>
+              <h2>{this.props.tagline}</h2>
+              <h3>Runtime: {this.props.runtime} minutes</h3>
+            </div>
+            <div className='movie-info'>
+              <h3 className='avg-rating'>Average Rating: {this.props.avgRating}</h3>
+              <h3>Your Rating: {this.state.userRating}<button className={this.state.deleteVisible} onClick={this.deleteRating}>Delete Your Rating</button></h3>
+              <h3 className={this.state.inputVisible}>Rate This Movie from 1-10!</h3>
+                <input
+                className='rating-input'
+                type='number'
+                name='userRating'
+                placeholder='1 - 10'
+                value={this.state.userRating}
+                onChange={this.createRating}
+                />
+                <button className='rating-btn' onClick={this.submitRating}>Submit</button>
+              <h3>Release Date: {this.props.releaseDate}</h3>
+              <p>Genres: {this.props.genres}</p>
+              <p className='overview'>{this.props.overview}</p>
+              <h4>Budget: ${this.props.budget}</h4>
+              <h4>Revenue: ${this.props.revenue}</h4>
+            </div>
           </div>
-          <div className='poster-display'>
-            <img src={this.props.poster} className="movie-poster"/>
-            <h2>{this.props.tagline}</h2>
-            <h3>Runtime: {this.props.runtime} minutes</h3>
-          </div>
-          <div className='movie-info'>
-            <h3 className='avg-rating'>Average Rating: {this.props.avgRating}</h3>
-            <h3>Your Rating: {this.state.userRating}<button className={this.state.deleteVisible} onClick={this.deleteRating}>Delete Your Rating</button></h3>
-            <h3 className={this.state.inputVisible}>Rate This Movie from 1-10!</h3>
-              <input
-              className='rating-input'
-              type='number'
-              name='userRating'
-              placeholder='1 - 10'
-              value={this.state.userRating}
-              onChange={this.createRating}
-              />
-              <button className='rating-btn' onClick={this.submitRating}>Submit</button>
-            <h3>Release Date: {this.props.releaseDate}</h3>
-            <p>Genres: {this.props.genres}</p>
-            <p className='overview'>{this.props.overview}</p>
-            <h4>Budget: ${this.props.budget}</h4>
-            <h4>Revenue: ${this.props.revenue}</h4>
-          </div>
+          <Comments
+            login={this.props.loggedIn}
+            movieId={this.props.movieId}
+          />
         </div>
       )
     }
