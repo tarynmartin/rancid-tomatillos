@@ -50,9 +50,9 @@ export const getComments = (movieId) => {
     .then(response => response.json())
 }
 
-export const postComment = (newComment) => {
+export const postComment = (movieId, newComment) => {
   return fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`, {
-    method: POST,
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
