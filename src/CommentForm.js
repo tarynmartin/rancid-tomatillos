@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './CommentForm.css';
 
 class CommentForm extends Component {
-  constructor(props{
+  constructor(props) {
     super(props);
     this.state = {
       userComment: '',
@@ -22,7 +22,7 @@ class CommentForm extends Component {
       author: this.state.author
     }
 
-    this.props.addComment(newComment);
+    this.props.addComment(this.props.movieId, newComment);
     this.clearInputs();
   }
 
@@ -31,24 +31,28 @@ class CommentForm extends Component {
   }
 
   render() {
-    <div className='comment-form'>
-      <input
-        className='author-input'
+    return (
+      <div className='comment-form'>
+        <input
+          className='author-input'
+          type='text'
+          placeholder='Name'
+          name='author'
+          value={this.state.author}
+          onChange={this.createComment}
+        />
+        <input
+        className='comment-input'
         type='text'
-        placeholder='Name'
-        name='author'
-        value={this.state.author}
+        placeholder='Comment'
+        name='userComment'
+        value={this.state.userComment}
         onChange={this.createComment}
-      />
-      <input
-      className='comment-input'
-      type='text'
-      placeholder='Comment'
-      name='userComment'
-      value={this.state.userComment}
-      onChange={this.createComment}
-      />
-      <button className='submit-btn' onClick={this.submitComment}>Submit</button>
-    </div>
+        />
+        <button className='submit-btn' onClick={this.submitComment}>Submit</button>
+      </div>
+    )
   }
 }
+
+export default CommentForm;
