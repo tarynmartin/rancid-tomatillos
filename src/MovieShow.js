@@ -111,7 +111,7 @@ class MovieShow extends Component{
         <div className='movies-comments'>
           <div className='movie-show'>
             <div className='btn-box'>
-              <NavLink className='back-btn' exact to='/'>Back</NavLink>
+              <NavLink className='back-btn' onClick={this.props.changePage} exact to='/'>Back</NavLink>
               <h1 className='movie-title'>{this.props.title}</h1>
             </div>
             <div className='poster-display'>
@@ -139,7 +139,7 @@ class MovieShow extends Component{
         <div className='movies-comments'>
           <div className='movie-show'>
             <div className='btn-box'>
-              <NavLink className='back-btn' exact to='/'>Back</NavLink>
+              <NavLink className='back-btn' onClick={this.props.changePage} exact to='/'>Back</NavLink>
               <h1 className='movie-title'>{this.props.title}</h1>
             </div>
             <div className='poster-display'>
