@@ -54,11 +54,11 @@ class Comments extends Component {
       return (
         <div className='comments'>
           <h1 className='comment-title'>Comments</h1>
-          {this.state.comments.map(comment => {
+          {this.state.comments.map((comment, index) => {
             return (<Comment
                 comment={comment.comment}
                 author={comment.author}
-                key={Date.now()}
+                key={index}
               />)
           })}
         </div>

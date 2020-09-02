@@ -6,14 +6,14 @@ class Header extends Component {
     super(props)
   }
   render() {
-    if (this.props.pageView === 'loggedIn') {
+    if (this.props.pageView === 'loggedIn'|| this.props.login === true) {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
           <button className='login-out' onClick={this.props.logoutBtn}>Log Out</button>
         </header>
       )
-    } else if (this.props.pageView === 'movie-show' && this.props.user != '') {
+    } else if (this.props.pageView === 'movie-show' && this.props.user !== '') {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
