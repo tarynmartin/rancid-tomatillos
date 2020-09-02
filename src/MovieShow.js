@@ -8,7 +8,7 @@ class MovieShow extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      userRating: this.props.userRating || null,
+      userRating: this.props.userRating || '',
       error: '',
       inputVisible: '' || this.props.ratingMatch,
       checkedInput: false,
@@ -25,7 +25,7 @@ class MovieShow extends Component{
   // compare previous and current props to see if there was a change
   // react docs for componentDidUpdate for current and previous props
   componentDidUpdate(prevProps) {
-    if (this.props.userRatings != prevProps) {
+    if (this.props.userRatings !== prevProps) {
       if (this.state.ratingDeleted) {
         this.sendDeleteRating(this.props.userId, this.state.ratingId)
       } else if(this.state.ratingSubmitted) {
@@ -115,7 +115,7 @@ class MovieShow extends Component{
               <h1 className='movie-title'>{this.props.title}</h1>
             </div>
             <div className='poster-display'>
-              <img src={this.props.poster} className="movie-poster"/>
+              <img src={this.props.poster} className="movie-poster" alt='movie poster'/>
               <h2>{this.props.tagline}</h2>
               <h3>Runtime: {this.props.runtime} minutes</h3>
             </div>
@@ -143,7 +143,7 @@ class MovieShow extends Component{
               <h1 className='movie-title'>{this.props.title}</h1>
             </div>
             <div className='poster-display'>
-              <img src={this.props.poster} className="movie-poster"/>
+              <img src={this.props.poster} className="movie-poster" alt='movie poster'/>
               <h2>{this.props.tagline}</h2>
               <h3>Runtime: {this.props.runtime} minutes</h3>
             </div>
