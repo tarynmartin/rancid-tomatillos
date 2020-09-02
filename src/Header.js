@@ -13,7 +13,7 @@ class Header extends Component {
           <button className='login-out' onClick={this.props.logoutBtn}>Log Out</button>
         </header>
       )
-    } else if (this.props.pageView === 'movie-show' && this.props.user != '') {
+    } else if (this.props.pageView === 'movie-show' && this.props.user !== '') {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
