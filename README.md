@@ -1,68 +1,47 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Rancid Tomatillos Project
+## Mod 3 Front End Paired Project
 
-## Available Scripts
+### Abstract
+We created an app that allows users to rate movies, check out movie information, and add comments to movies when they are logged in. We used React JS, HTML, CSS, and Jest for testing.
 
-In the project directory, you can run:
+### App in Action
+![hompage view to login](./assets/manager-responsiveness.gif)
 
-### `npm start`
+![selecting a movie and going back to home page](./assets/customer-responsiveness.gif)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Setup
+1) Click the green code button on the screen and clone/copy the repository link
+2) In terminal, navigate to where you would like this project to live.
+3) In terminal, type `git clone [copied link from Github]`
+4) Move into the project file and run `npm install`
+5) In packages.json, make sure that dependencies include react-router-dom. If you need to install it, in terminal enter 'npm install --save react-router-dom'
+6) Once all dependencies are downloaded, in terminal run 'npm start' - this should open a new window in your browser, allowing you to navigate throughout the site.
+7) If you would like to check out the commenting functionality, go to this [repo](https://github.com/turingschool-examples/rancid-tomatillos-microservice) and follow the directions to run this local server on your computer.
+8) If you would like to run the testing functionality, go to the main project directory in terminal and run the following commands if needed:
+  - 'npm install --save-dev @testing-library/react'
+  - 'npm install --save-dev @testing-library/jest-dom'
+  - 'npm install --save-dev jest-environment-jsdom-sixteen'
+9) Once everything is downloaded, run npm test in terminal to see test results.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Successes
+- Finished iterations 0 - 7a
+- Learned a lot about React, Router, and accessing information through API's and local servers.
 
-### `npm test`
+### Challenges
+- We struggled with communication and workflow throughout the project, definitely something we would like to work on in the future
+- Testing was difficult to wrap our brains around and would like more practice in the future.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Next Steps
+- Flesh out testing suites
+- Complete iteration 7b
+- Refactor code to be cleaner - is there anything that can be moved from App to a different Component
+- Switch from CSS to SCSS
+- Create a link for the page title to take the user back to the homepage
 
-### `npm run build`
+### Authors
+- :bust_in_silhouette: **Taryn Martin** Github: [tarynmartin](https://github.com/tarynmartin)
+- :bust_in_silhouette: **Carlyle Douglas** Github: [DougieDev](https://github.com/DougieDev)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Resources
+View the Turing schools, [Project Spec](https://frontend.turing.io/projects/module-3/rancid-tomatillos-v2.html)
+GitHub [Project Board](https://github.com/DougieDev/Rancid-Tomatillos-cd-tm/projects/1)
