@@ -52,6 +52,8 @@
 .overview {
   margin: 2vw 0;
   font-size: 22px;
+  height: 20vh;
+  overflow: scroll;
 }
 
 .poster-display,
