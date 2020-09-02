@@ -20,10 +20,6 @@ class MovieShow extends Component{
       ratingId: null
     }
   }
-  // componentDidUpdate - update usersRatings
-  // need conditional logic to only run logic when needed
-  // compare previous and current props to see if there was a change
-  // react docs for componentDidUpdate for current and previous props
   componentDidUpdate(prevProps) {
     if (this.props.userRatings !== prevProps) {
       if (this.state.ratingDeleted) {

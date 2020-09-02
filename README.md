@@ -5,9 +5,9 @@
 We created an app that allows users to rate movies, check out movie information, and add comments to movies when they are logged in. We used React JS, HTML, CSS, and Jest for testing.
 
 ### App in Action
-![hompage view to login](./assets/manager-responsiveness.gif)
+![homepage and movie info page functionality](./assets/rotten-functionality.gif)
 
-![selecting a movie and going back to home page](./assets/customer-responsiveness.gif)
+![user adding a comment to a specific movie](./assets/rotten-functionality.gif)
 
 ### Setup
 1) Click the green code button on the screen and clone/copy the repository link
