@@ -1,20 +1,21 @@
 import React from 'react';
 import './Movies.css';
+import PropTypes from 'prop-types';
 import MovieCard from '../MovieCard/MovieCard';
 
-const Movies = (props) => {
+const Movies = ({user, movies, error, showMovieInfo}) => {
 
-  if (props.error !== '') {
-    return <h2 className='message-bar'>{props.error}</h2>
-  } else if (props.user) {
+  if (error !== '') {
+    return <h2 className='message-bar'>{error}</h2>
+  } else if (user) {
     return (
       <div>
-        <h2 className='message-bar'>Hello {props.user}!</h2>
+        <h2 className='message-bar'>Hello {user}!</h2>
         <section className="movies-container">
           {
-            props.movies.map(movie => {
+            movies.map(movie => {
               return (<MovieCard
-                movie={movie} showMovieInfo={props.showMovieInfo}
+                movie={movie} showMovieInfo={showMovieInfo}
                 key={movie.id}
                 />)
             })
@@ -26,10 +27,10 @@ const Movies = (props) => {
     return (
       <section className="movies-container">
         {
-          props.movies.map(movie => {
+          movies.map(movie => {
             return (<MovieCard
               movie = {movie}
-              showMovieInfo={props.showMovieInfo}
+              showMovieInfo={showMovieInfo}
               key={movie.id}
               />)
           })
@@ -37,6 +38,13 @@ const Movies = (props) => {
       </section>
     )
   }
+}
+
+Movies.propTypes = {
+  user: PropTypes.string,
+  movies: PropTypes.arrayOf(PropTypes.object),
+  error: PropTypes.string,
+  showMovieInfo: PropTypes.func
 }
 
 export default Movies;
