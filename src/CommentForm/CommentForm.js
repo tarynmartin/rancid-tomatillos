@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './CommentForm.css';
 
 class CommentForm extends Component {
@@ -17,12 +18,13 @@ class CommentForm extends Component {
 
   submitComment = (event) => {
     event.preventDefault();
+    const { addComment, movieId } = this.props;
     const newComment = {
       comment: this.state.userComment,
       author: this.state.author
     }
 
-    this.props.addComment(this.props.movieId, newComment);
+    addComment(movieId, newComment);
     this.clearInputs();
   }
 
@@ -54,6 +56,13 @@ class CommentForm extends Component {
       </div>
     )
   }
+}
+
+CommentForm.propTypes = {
+  addComment: PropTypes.func,
+  movieId: PropTypes.number,
+  userComment: PropTypes.string,
+  author: PropTypes.string
 }
 
 export default CommentForm;

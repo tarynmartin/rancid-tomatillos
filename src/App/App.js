@@ -32,7 +32,8 @@ class App extends Component {
       average_rating: null,
       userRatings: [],
       ratingMatch: '',
-      userRating: null
+      userRating: null,
+      deleteVisible: ''
     }
   }
   componentDidMount() {
@@ -136,6 +137,7 @@ class App extends Component {
     return (
       <main className="App">
         <Header
+          user={this.state.userName}
           loginBtn={this.showLogin}
           logoutBtn={this.logoutUser}
           pageView={page}
