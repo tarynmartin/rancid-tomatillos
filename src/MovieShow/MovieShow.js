@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { submitUserRating, deleteUserRating } from '../helpers/apiCalls';
 import Comments from '../Comments/Comments';
-import './MovieShow.css'
+import './MovieShow.css';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 class MovieShow extends Component{
@@ -13,7 +14,6 @@ class MovieShow extends Component{
       inputVisible: '' || this.props.ratingMatch,
       checkedInput: false,
       deleteVisible: this.props.deleteVisible || 'hidden',
-      ratingId: null,
       userRatings: this.props.userRatings,
       ratingDeleted: false,
       ratingSubmitted: false,
@@ -21,12 +21,13 @@ class MovieShow extends Component{
     }
   }
   componentDidUpdate(prevProps) {
-    if (this.props.userRatings !== prevProps) {
+    const { movieId, userId, userRatings } = this.props;
+    if (userRatings !== prevProps) {
       if (this.state.ratingDeleted) {
-        this.sendDeleteRating(this.props.userId, this.state.ratingId)
+        this.sendDeleteRating(userId, this.state.ratingId)
       } else if(this.state.ratingSubmitted) {
         const newRating = {
-          movie_id: this.props.movieId,
+          movie_id: movieId,
           rating: parseInt(this.state.userRating)
         }
 
@@ -45,9 +46,10 @@ class MovieShow extends Component{
   }
 
   sendPostRequest = (userRating) => {
-    submitUserRating(this.props.userId, userRating)
-      .then(newRating => this.props.changeAfterSubmit(this.props.userId, this.props.movieId))
-      .then(newResponse => this.setState({inputVisible: 'hidden', deleteVisible: 'delete-button', userRatings: this.props.userRatings}))
+    const { movieId, userId, userRatings, changeAfterSubmit } = this.props;
+    submitUserRating(userId, userRating)
+      .then(newRating => changeAfterSubmit(userId, movieId))
+      .then(newResponse => this.setState({inputVisible: 'hidden', deleteVisible: 'delete-button', userRatings: userRatings}))
       .then(finalResponse => this.setState({ratingSubmitted: false, checkedInput: false}))
       .catch(error => {
         this.setState({error: 'You have already submitted a rating for this movie.'})
@@ -74,15 +76,17 @@ class MovieShow extends Component{
   }
 
   deleteRating = (event) => {
+    const { userRatings } = this.props;
     event.preventDefault();
-    const ratingId = this.findRatingId(this.props.userRatings);
+    const ratingId = this.findRatingId(userRatings);
     this.setState({ratingDeleted: true, ratingId: ratingId})
   }
 
   sendDeleteRating= (userId, ratingId) => {
+    const {movieId, userRatings, getRatings} = this.props;
     deleteUserRating(userId, ratingId)
-      .then(response => this.props.getRatings(this.props.userId, this.props.movieId))
-      .then(newResponse => this.setState((state, props) => ({ratingId: null,userRating: null, deleteVisible: 'hidden', inputVisible: '', userRatings: this.props.userRatings})))
+      .then(response => getRatings(userId, movieId))
+      .then(newResponse => this.setState((state, props) => ({ratingId: null,userRating: null, deleteVisible: 'hidden', inputVisible: '', userRatings: userRatings})))
       .then(finalResponse => this.setState({ratingDeleted: false}))
       .catch(error => {
         this.setState({error: 'Sorry, we were unable to remove your rating for this movie. Try again later!'})
@@ -90,44 +94,43 @@ class MovieShow extends Component{
   }
 
   findRatingId(usersRatings) {
-    let matchedRating = usersRatings.find(rating => rating.movie_id === this.props.movieId);
+    const { movieId } = this.props;
+    let matchedRating = usersRatings.find(rating => rating.movie_id === movieId);
 
     return matchedRating.id;
   }
 
   render() {
+    const { movieId, loggedIn, title, poster, releaseDate, overview, genres, budget, revenue, runtime, tagline, avgRating, changePage } = this.props;
     if (this.state.error !== "") {
       return (
         <div className='message-bar'>
           <h2>{this.state.error}</h2>
         </div>
       )
-    } else if (this.props.loggedIn === false) {
+    } else if (loggedIn === false) {
       return (
         <div className='movies-comments'>
           <div className='movie-show'>
             <div className='btn-box'>
-              <NavLink className='back-btn' onClick={this.props.changePage} exact to='/'>Back</NavLink>
-              <h1 className='movie-title'>{this.props.title}</h1>
+              <NavLink className='back-btn' onClick={changePage} exact to='/'>Back</NavLink>
+              <h1 className='movie-title'>{title}</h1>
             </div>
             <div className='poster-display'>
-              <img src={this.props.poster} className="movie-poster" alt='movie poster'/>
-              <h2>{this.props.tagline}</h2>
-              <h3>Runtime: {this.props.runtime} minutes</h3>
+              <img src={poster} className="movie-poster" alt='movie poster'/>
+              <h2>{tagline}</h2>
+              <h3>Runtime: {runtime} minutes</h3>
             </div>
             <div className='movie-info'>
-              <h3>Average Rating: {this.props.avgRating}</h3>
-              <h3>Release Date: {this.props.releaseDate}</h3>
-              <p>Genres: {this.props.genres}</p>
-              <p className='overview'>{this.props.overview}</p>
-              <h4>Budget: ${this.props.budget}</h4>
-              <h4>Revenue: ${this.props.revenue}</h4>
+              <h3>Average Rating: {avgRating}</h3>
+              <h3>Release Date: {releaseDate}</h3>
+              <p>Genres: {genres}</p>
+              <p className='overview'>{overview}</p>
+              <h4>Budget: ${budget}</h4>
+              <h4>Revenue: ${revenue}</h4>
             </div>
           </div>
-          <Comments
-            login={this.props.loggedIn}
-            movieId={this.props.movieId}
-          />
+          <Comments />
         </div>
       )
     } else {
@@ -135,16 +138,16 @@ class MovieShow extends Component{
         <div className='movies-comments'>
           <div className='movie-show'>
             <div className='btn-box'>
-              <NavLink className='back-btn' onClick={this.props.changePage} exact to='/'>Back</NavLink>
-              <h1 className='movie-title'>{this.props.title}</h1>
+              <NavLink className='back-btn' onClick={changePage} exact to='/'>Back</NavLink>
+              <h1 className='movie-title'>{title}</h1>
             </div>
             <div className='poster-display'>
-              <img src={this.props.poster} className="movie-poster" alt='movie poster'/>
-              <h2>{this.props.tagline}</h2>
-              <h3>Runtime: {this.props.runtime} minutes</h3>
+              <img src={poster} className="movie-poster" alt='movie poster'/>
+              <h2>{tagline}</h2>
+              <h3>Runtime: {runtime} minutes</h3>
             </div>
             <div className='movie-info'>
-              <h3 className='avg-rating'>Average Rating: {this.props.avgRating}</h3>
+              <h3 className='avg-rating'>Average Rating: {avgRating}</h3>
               <h3>Your Rating: {this.state.userRating}<button className={this.state.deleteVisible} onClick={this.deleteRating}>Delete Your Rating</button></h3>
               <h3 className={this.state.inputVisible}>Rate This Movie from 1-10!</h3>
                 <input
@@ -156,16 +159,16 @@ class MovieShow extends Component{
                 onChange={this.createRating}
                 />
                 <button className='rating-btn' onClick={this.submitRating}>Submit</button>
-              <h3>Release Date: {this.props.releaseDate}</h3>
-              <p>Genres: {this.props.genres}</p>
-              <p className='overview'>{this.props.overview}</p>
-              <h4>Budget: ${this.props.budget}</h4>
-              <h4>Revenue: ${this.props.revenue}</h4>
+              <h3>Release Date: {releaseDate}</h3>
+              <p>Genres: {genres}</p>
+              <p className='overview'>{overview}</p>
+              <h4>Budget: ${budget}</h4>
+              <h4>Revenue: ${revenue}</h4>
             </div>
           </div>
           <Comments
-            login={this.props.loggedIn}
-            movieId={this.props.movieId}
+            login={loggedIn}
+            movieId={movieId}
           />
         </div>
       )
@@ -173,6 +176,33 @@ class MovieShow extends Component{
   }
 }
 
-
+MovieShow.propTypes = {
+  error: PropTypes.string,
+  inputVisible: PropTypes.string,
+  checkedInput: PropTypes.bool,
+  ratingDeleted: PropTypes.bool,
+  ratingSubmitted: PropTypes.bool,
+  ratingId: PropTypes.number,
+  movieId: PropTypes.number,
+  userId: PropTypes.number,
+  loggedIn: PropTypes.bool,
+  title: PropTypes.string,
+  poster: PropTypes.string,
+  releaseDate: PropTypes.string,
+  overview: PropTypes.string,
+  genres: PropTypes.string,
+  budget: PropTypes.string,
+  revenue: PropTypes.string,
+  runtime: PropTypes.number,
+  tagline: PropTypes.string,
+  avgRating: PropTypes.string,
+  userRatings: PropTypes.arrayOf(PropTypes.object),
+  ratingMatch: PropTypes.string,
+  userRating: PropTypes.string,
+  deleteVisible: PropTypes.string,
+  getRatings: PropTypes.func,
+  changeAfterSubmit: PropTypes.func,
+  changePage: PropTypes.func
+}
 
 export default MovieShow;
