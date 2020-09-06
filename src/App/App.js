@@ -137,6 +137,7 @@ class App extends Component {
     return (
       <main className="App">
         <Header
+          user={this.state.userName}
           loginBtn={this.showLogin}
           logoutBtn={this.logoutUser}
           pageView={page}
