@@ -32,7 +32,8 @@ class App extends Component {
       average_rating: null,
       userRatings: [],
       ratingMatch: '',
-      userRating: null
+      userRating: null,
+      deleteVisible: ''
     }
   }
   componentDidMount() {
