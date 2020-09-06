@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Comments.css';
+import PropTypes from 'prop-types';
 import Comment from '../Comment/Comment';
 import CommentForm from '../CommentForm/CommentForm';
 import { getComments, postComment } from '../helpers/apiCalls';
@@ -13,10 +14,11 @@ class Comments extends Component {
     }
   }
   componentDidMount() {
-    getComments(this.props.movieId)
+    const { movieId } = this.props;
+    getComments(movieId)
       .then(response => {
         let movieComments = response.comments
-          .filter(comment => comment.movieId ===  this.props.movieId)
+          .filter(comment => comment.movieId === movieId)
           this.setState({comments: movieComments});
       })
       .catch(error => this.setState({error: 'Sorry, we couldn\'t get the comments for this movie.'}))
@@ -33,13 +35,13 @@ class Comments extends Component {
   }
 
   render() {
-    if (this.props.login) {
+    const { login, movieId } = this.props;
+    if (login) {
       return (
         <div className='comments'>
           <h1 className='comment-title'>Comments</h1>
           <CommentForm                   addComment={this.addComment}
-          movieId={this.props.movieId}
-          addToComments={this.addToComments}
+          movieId={movieId}
           />
           {this.state.comments.map(comment => {
             return (<Comment
@@ -65,6 +67,12 @@ class Comments extends Component {
       )
     }
   }
+}
+
+Comments.propTypes = {
+  comments: PropTypes.arrayOf(PropTypes.object),
+  login: PropTypes.bool,
+  movieId: PropTypes.number
 }
 
 export default Comments;
