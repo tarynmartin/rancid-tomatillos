@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
 import './Header.css';
+import PropTypes from 'prop-types';
 
-class Header extends Component {
-  constructor(props) {
-    super(props)
-  }
-  render() {
-    if (this.props.pageView === 'loggedIn'|| this.props.login === true) {
+const Header = ({user, loginBtn, logoutBtn, pageView, login}) => {
+    if (pageView === 'loggedIn'|| login === true) {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
-          <button className='login-out' onClick={this.props.logoutBtn}>Log Out</button>
+          <button className='login-out' onClick={logoutBtn}>Log Out</button>
         </header>
       )
-    } else if (this.props.pageView === 'movie-show' && this.props.user !== '') {
+    } else if (pageView === 'movie-show' && user !== '') {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
-          <button className='login-out' onClick={this.props.logoutBtn}>Log Out</button>
+          <button className='login-out' onClick={logoutBtn}>Log Out</button>
         </header>
       )
-    } else if (this.props.pageView === 'login') {
+    } else if (pageView === 'login') {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
@@ -30,11 +27,18 @@ class Header extends Component {
       return (
         <header className="App-header">
           <h1>Rancid Tomatillos</h1>
-          <button className='login-out' onClick={this.props.loginBtn}>Login</button>
+          <button className='login-out' onClick={loginBtn}>Login</button>
         </header>
       )
     }
-  }
 }
+
+Header.propTypes = {
+  user: PropTypes.string,
+  loginBtn: PropTypes.func,
+  logoutBtn: PropTypes.func,
+  pageView: PropTypes.string,
+  login: PropTypes.bool
+};
 
 export default Header;
