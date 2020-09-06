@@ -7,7 +7,7 @@ We created an app that allows users to rate movies, check out movie information,
 ### App in Action
 ![homepage and movie info page functionality](./assets/rotten-functionality.gif)
 
-![user adding a comment to a specific movie](./assets/rotten-functionality.gif)
+![user adding a comment to a specific movie](./assets/rotten-comment.gif)
 
 ### Setup
 1) Click the green code button on the screen and clone/copy the repository link
