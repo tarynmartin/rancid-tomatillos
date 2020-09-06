@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Login.css';
+import PropTypes from 'prop-types';
 
 class Login extends Component {
   constructor(props) {
@@ -17,13 +18,14 @@ class Login extends Component {
   }
 
   submitUser = (event) => {
+    const { submitLogin } = this.props;
     event.preventDefault();
     const newLogin = {
       email: this.state.userEmail,
       password: this.state.userPassword
     }
 
-    this.props.submitLogin(newLogin);
+    submitLogin(newLogin);
     this.clearInputs();
   }
 
@@ -54,6 +56,12 @@ class Login extends Component {
       </div>
     )
   }
+}
+
+Login.propTypes = {
+  userEmail: PropTypes.string,
+  userPassword: PropTypes.string,
+  submitLogin: PropTypes.func
 }
 
 export default Login;
