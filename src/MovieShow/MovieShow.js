@@ -11,7 +11,6 @@ class MovieShow extends Component{
     this.state = {
       title: '',
       poster: '',
-      backdrop: '',
       releaseDate: '',
       overview: '',
       genres: null,
@@ -23,11 +22,8 @@ class MovieShow extends Component{
       userRating: this.props.userRating || '',
       error: '',
       inputVisible: '' || this.props.ratingMatch,
-      checkedInput: false,
       deleteVisible: this.props.deleteVisible || 'hidden',
       userRatings: this.props.userRatings,
-      ratingDeleted: false,
-      ratingSubmitted: false,
       ratingId: null
     }
   }
@@ -42,7 +38,6 @@ class MovieShow extends Component{
       .then(data => this.setState({
         title: data.movie.title,
         poster: data.movie.poster_path,
-        backdrop: data.movie.backdrop_path,
         releaseDate: data.movie.release_date,
         overview: data.movie.overview,
         genres: data.movie.genres.join(', '),
@@ -57,14 +52,15 @@ class MovieShow extends Component{
   submitRating = (event) => {
     const { movieId } = this.props;
     event.preventDefault();
-    if (this.state.checkedInput === false) {
+    const checkedInput = this.checkInput(this.state.userRating)
+    if (checkedInput === false) {
       return alert('Please enter a valid number from 1 - 10, no decimals!')
     } else {
       const newRating = {
               movie_id: movieId,
               rating: parseInt(this.state.userRating)
             }
-      this.setState({ratingSubmitted: true}, () => this.sendPostRequest(newRating));
+      this.sendPostRequest(newRating);
     }
   }
 
@@ -73,7 +69,7 @@ class MovieShow extends Component{
     submitUserRating(userId, userRating)
       .then(newRating => getRatings(userId))
       .then(getMovie => this.getMovieInfo(movieId))
-      .then(newResponse => this.setState({inputVisible: 'hidden', deleteVisible: 'delete-button', userRatings: userRatings}))
+      .then(newResponse => this.setState({error: '', inputVisible: 'hidden', deleteVisible: 'delete-button', userRatings: userRatings}))
       .then(finalResponse => this.setState({checkedInput: false}))
       .catch(error => {
         this.setState({error: 'You have already submitted a rating for this movie.'})
@@ -83,14 +79,12 @@ class MovieShow extends Component{
   createRating = (event) => {
     const inputKey = event.target.name;
     const inputValue = event.target.value;
-    this.setState({checkedInput: this.checkInput(inputValue), [inputKey]: inputValue});
+    this.setState({[inputKey]: inputValue});
   }
 
   checkInput(inputValue) {
     const userInput = +inputValue;
     if (inputValue < 1 || inputValue > 10) {
-      return false;
-    } else if (this.state.checkedInput === '') {
       return false;
     } else if (Number.isInteger(userInput)) {
       return true;
@@ -103,7 +97,8 @@ class MovieShow extends Component{
     const { userId, userRatings } = this.props;
     event.preventDefault();
     const ratingId = this.findRatingId(userRatings);
-    this.setState({ratingDeleted: true, ratingId: ratingId}, () => this.sendDeleteRating(userId, this.state.ratingId))
+
+    this.setState({ratingId: ratingId}, () => this.sendDeleteRating(userId, this.state.ratingId))
   }
 
   sendDeleteRating= (userId, ratingId) => {
@@ -111,8 +106,7 @@ class MovieShow extends Component{
     deleteUserRating(userId, ratingId)
       .then(response => getRatings(userId))
       .then(getMovie => this.getMovieInfo(movieId))
-      .then(newResponse => this.setState((state, props) => ({ratingId: null, userRating: null, deleteVisible: 'hidden', inputVisible: '', userRatings: userRatings})))
-      .then(finalResponse => this.setState({ratingDeleted: false}))
+      .then(newResponse => this.setState((state, props) => ({error: '', ratingId: null, userRating: null, deleteVisible: 'hidden', inputVisible: '', userRatings: userRatings})))
       .catch(error => {
         this.setState({error: 'Sorry, we were unable to remove your rating for this movie. Try again later!'})
       })
@@ -120,9 +114,13 @@ class MovieShow extends Component{
 
   findRatingId(usersRatings) {
     const { movieId } = this.props;
-    let matchedRating = usersRatings.find(rating => rating.movie_id === movieId);
+    const matchedRating = usersRatings.find(rating => rating.movie_id === movieId);
 
-    return matchedRating.id;
+    if (matchedRating === undefined) {
+      this.setState({error: "Sorry, we are having trouble. Please check back later to finish deleting your rating."})
+    } else {
+      return matchedRating.id;
+    }
   }
 
   render() {
@@ -133,7 +131,7 @@ class MovieShow extends Component{
             <div className='btn-box'>
               <Link className='back-btn' onClick={changePage} exact to='/'>Back</Link>
               {this.state.error !== "" &&
-              <div className='message-bar'>
+              <div className='error-message-bar'>
                 <h2>{this.state.error}</h2>
               </div>
               }
@@ -149,16 +147,18 @@ class MovieShow extends Component{
               {userId !== null &&
                 <div>
                 <h3>Your Rating: {this.state.userRating}<button className={this.state.deleteVisible} onClick={this.deleteRating}>Delete Your Rating</button></h3>
-                <h3 className={this.state.inputVisible}>Rate This Movie from 1-10!</h3>
-                  <input
-                  className='rating-input'
-                  type='number'
-                  name='userRating'
-                  placeholder='1 - 10'
-                  value={this.state.userRating}
-                  onChange={this.createRating}
-                  />
-                  <button className='rating-btn' onClick={this.submitRating}>Submit</button>
+                  <div className={this.state.inputVisible}>
+                  <h3>Rate This Movie from 1-10!</h3>
+                    <input
+                    className='rating-input'
+                    type='number'
+                    name='userRating'
+                    placeholder='1 - 10'
+                    value={this.state.userRating}
+                    onChange={this.createRating}
+                    />
+                    <button className='rating-btn' onClick={this.submitRating}>Submit</button>
+                  </div>
                 </div>
               }
               <h3>Release Date: {this.state.releaseDate}</h3>
@@ -178,8 +178,6 @@ MovieShow.propTypes = {
   error: PropTypes.string,
   inputVisible: PropTypes.string,
   checkedInput: PropTypes.bool,
-  ratingDeleted: PropTypes.bool,
-  ratingSubmitted: PropTypes.bool,
   ratingId: PropTypes.number,
   movieId: PropTypes.number,
   userId: PropTypes.number,
