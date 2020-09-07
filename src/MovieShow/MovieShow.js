@@ -3,7 +3,7 @@ import { retrieveMovieInfo, submitUserRating, deleteUserRating } from '../helper
 import Comments from '../Comments/Comments';
 import './MovieShow.css';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class MovieShow extends Component{
   constructor(props) {
@@ -131,7 +131,7 @@ class MovieShow extends Component{
         <div className='movies-comments'>
           <div className='movie-show'>
             <div className='btn-box'>
-              <NavLink className='back-btn' onClick={changePage} exact to='/'>Back</NavLink>
+              <Link className='back-btn' onClick={changePage} exact to='/'>Back</Link>
               {this.state.error !== "" &&
               <div className='message-bar'>
                 <h2>{this.state.error}</h2>

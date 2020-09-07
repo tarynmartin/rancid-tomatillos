@@ -1,6 +1,12 @@
 export const getMovies = () => {
   return fetch("https:rancid-tomatillos.herokuapp.com/api/v2/movies")
-    .then(response => response.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw new Error('Something went wrong')
+      }
+    })
 }
 
 export const loginUser = (loginInfo) => {
@@ -11,17 +17,35 @@ export const loginUser = (loginInfo) => {
     },
     body: JSON.stringify(loginInfo),
   })
-    .then(response => response.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw new Error('Something went wrong')
+      }
+    })
 }
 
 export const retrieveMovieInfo = (movieId) => {
   return fetch(`https:rancid-tomatillos.herokuapp.com/api/v2/movies/${movieId}`)
-    .then(response => response.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw new Error('Something went wrong')
+      }
+    })
 }
 
 export const retrieveUserRatings = (userID) => {
   return fetch(`https:rancid-tomatillos.herokuapp.com/api/v2/users/${userID}/ratings`)
-    .then(response => response.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw new Error('Something went wrong')
+      }
+    })
 }
 
 export const submitUserRating = (userID, ratingInfo) => {
@@ -32,7 +56,13 @@ export const submitUserRating = (userID, ratingInfo) => {
       },
       body: JSON.stringify(ratingInfo),
     })
-      .then(response => response.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error('Something went wrong')
+        }
+      })
 
 }
 
@@ -47,7 +77,13 @@ export const deleteUserRating = (userID, ratingID) => {
 
 export const getComments = (movieId) => {
   return fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`)
-    .then(response => response.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw new Error('Something went wrong')
+      }
+    })
 }
 
 export const postComment = (movieId, newComment) => {

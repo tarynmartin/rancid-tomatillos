@@ -4,14 +4,13 @@ import Header from '../Header/Header'
 import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
 import MovieShow from '../MovieShow/MovieShow'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import { getMovies, loginUser, retrieveUserRatings } from '../helpers/apiCalls.js'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageView: 'home',
       movies: [],
       error: '',
       userId: null,
@@ -47,7 +46,6 @@ class App extends Component {
     loginUser(loginInfo)
       .then(json => {
         this.setState({
-          pageView: 'loggedIn',
           userId: json.user.id,
           userName: json.user.name,
           userEmail: json.user.email,
@@ -61,16 +59,12 @@ class App extends Component {
       });
   }
 
-  showLogin = () => {
-    this.setState({pageView: 'login'})
-  }
-
   logoutUser = () => {
-    this.setState({pageView: 'home', login: false, userId: null, userName: '', userEmail: ''})
+    this.setState({userId: null, userName: '', userEmail: ''})
   }
 
   showMovieInfo = (movieID) => {
-    this.setState({pageView: 'movie-show', movieId: movieID});
+    this.setState({movieId: movieID});
     this.checkForUserRating(movieID);
   }
 
@@ -82,15 +76,6 @@ class App extends Component {
     })
   }
 
-  changePageview = () => {
-    if(this.state.login === false) {
-      this.setState({pageView: 'home'})
-    } else if (this.state.login === true) {
-      this.setState({pageView: 'loggedIn'})
-    }
-
-  }
-
   render() {
     const page = this.state.pageView;
     return (
@@ -99,22 +84,20 @@ class App extends Component {
           user={this.state.userName}
           loginBtn={this.showLogin}
           logoutBtn={this.logoutUser}
-          pageView={page}
-          login={this.state.login}
         />
-        {page === 'login' &&
+        <Route exact path='/movies/login' render={() =>
           <Login submitLogin={this.submitPostRequest}/>
-        }
-        {page === 'loggedIn' &&
-          <Movies
-            user={this.state.userName}
-            movies={this.state.movies}
-            error={this.state.error}
-            showMovieInfo={this.showMovieInfo}
-          />
-        }
-        <Route path='/:movie_id'>
-         {page === 'movie-show' &&
+        }>
+        </Route>
+        <Route exact path="/movies/login" render={() => {
+            return (
+              (this.state.userName != '') ?
+                <Redirect to="/" />:
+                <Redirect to="/movies/login" />
+              )
+          }}>
+        </Route>
+        <Route exact path='/:movie_id' render={ () =>
           <MovieShow
           movieId={this.state.movieId}
           userId={this.state.userId}
@@ -123,18 +106,17 @@ class App extends Component {
           userRating={this.state.userRating}
           deleteVisible={this.state.deleteVisible}
           getRatings={this.getUserRatings}
-          changePage={this.changePageview}
           />
-         }
+        }>
         </Route>
-        <Route exact path='/'>
-         {page === 'home' &&
+        <Route exact path='/' render={ () =>
           <Movies
+          user={this.state.userName}
           movies={this.state.movies}
           error={this.state.error}
           showMovieInfo={this.showMovieInfo}
           />
-         }
+        }>
         </Route>
       </main>
     )
