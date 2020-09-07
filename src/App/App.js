@@ -99,8 +99,6 @@ class App extends Component {
           user={this.state.userName}
           loginBtn={this.showLogin}
           logoutBtn={this.logoutUser}
-          pageView={page}
-          login={this.state.login}
         />
         {page === 'login' &&
           <Login submitLogin={this.submitPostRequest}/>
