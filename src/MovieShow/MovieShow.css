@@ -13,6 +13,13 @@
   height: 120vh;
 }
 
+.error-message-bar {
+  font-size: 2vh;
+  grid-column: 2;
+  margin: 5vh;
+  margin-bottom: 1vh;
+}
+
 .btn-box {
   display: flex;
   grid-column: 1 / span 2
