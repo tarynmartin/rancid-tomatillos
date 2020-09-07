@@ -14,7 +14,7 @@ export const loginUser = (loginInfo) => {
     .then(response => response.json())
 }
 
-export const getMovieInfo = (movieId) => {
+export const retrieveMovieInfo = (movieId) => {
   return fetch(`https:rancid-tomatillos.herokuapp.com/api/v2/movies/${movieId}`)
     .then(response => response.json())
 }
