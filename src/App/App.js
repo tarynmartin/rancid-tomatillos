@@ -60,7 +60,7 @@ class App extends Component {
   }
 
   logoutUser = () => {
-    this.setState({pageView: 'home', login: false, userId: null, userName: '', userEmail: ''})
+    this.setState({userId: null, userName: '', userEmail: ''})
   }
 
   showMovieInfo = (movieID) => {
