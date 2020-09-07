@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 1fr 8fr;
-  height: 100vh;
+  height: 120vh;
 }
 
 .btn-box {
