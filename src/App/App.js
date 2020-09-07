@@ -5,7 +5,7 @@ import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
 import MovieShow from '../MovieShow/MovieShow'
 import { Route } from 'react-router-dom'
-import { getMovies, loginUser, getMovieInfo, retrieveUserRatings } from '../helpers/apiCalls.js'
+import { getMovies, loginUser, retrieveUserRatings } from '../helpers/apiCalls.js'
 
 class App extends Component {
   constructor(props) {
@@ -14,22 +14,10 @@ class App extends Component {
       pageView: 'home',
       movies: [],
       error: '',
-      login: false,
       userId: null,
       userName: '',
       userEmail: '',
       movieId: null,
-      movieTitle: '',
-      poster_path: '',
-      backdrop_path: '',
-      release_date: '',
-      overview: '',
-      genres: null,
-      budget: null,
-      revenue: null,
-      runtime: null,
-      tagline: '',
-      average_rating: null,
       userRatings: [],
       ratingMatch: '',
       userRating: null,
@@ -60,7 +48,6 @@ class App extends Component {
       .then(json => {
         this.setState({
           pageView: 'loggedIn',
-          login: true,
           userId: json.user.id,
           userName: json.user.name,
           userEmail: json.user.email,
@@ -74,23 +61,6 @@ class App extends Component {
       });
   }
 
-  getMovieInfo = (movieId) => {
-    getMovieInfo(movieId)
-      .then(data => this.setState({
-        movieTitle: data.movie.title,
-        poster_path: data.movie.poster_path,
-        backdrop_path: data.movie.backdrop_path,
-        release_date: data.movie.release_date,
-        overview: data.movie.overview,
-        genres: data.movie.genres.join(', '),
-        budget: data.movie.budget.toLocaleString(),
-        revenue: data.movie.revenue.toLocaleString(),
-        runtime: data.movie.runtime,
-        tagline: data.movie.tagline,
-        average_rating: data.movie.average_rating.toFixed(2),}))
-      .catch(error => this.setState({ pageView: 'home', error: "Sorry, we couldn't find that movie"}));
-  }
-
   showLogin = () => {
     this.setState({pageView: 'login'})
   }
@@ -99,20 +69,9 @@ class App extends Component {
     this.setState({pageView: 'home', login: false, userId: null, userName: '', userEmail: ''})
   }
 
-  showMovieInfoAfterDelete = (userId, movieId) => {
-    this.getUserRatings(userId);
-    this.getMovieInfo(movieId)
-  }
-
-  showMovieInfoAfterRating = (userId, movieId) => {
-    this.getUserRatings(userId);
-    this.showMovieInfo(movieId);
-  }
-
   showMovieInfo = (movieID) => {
     this.setState({pageView: 'movie-show', movieId: movieID});
     this.checkForUserRating(movieID);
-    this.getMovieInfo(movieID);
   }
 
   checkForUserRating(movieId) {
@@ -159,24 +118,11 @@ class App extends Component {
           <MovieShow
           movieId={this.state.movieId}
           userId={this.state.userId}
-          loggedIn={this.state.login}
-          title={this.state.movieTitle}
-          poster={this.state.poster_path}
-          backdrop={this.state.backdrop_path}
-          releaseDate={this.state.release_date}
-          overview={this.state.overview}
-          genres={this.state.genres}
-          budget={this.state.budget}
-          revenue={this.state.revenue}
-          runtime={this.state.runtime}
-          tagline={this.state.tagline}
-          avgRating={this.state.average_rating}
           userRatings={this.state.userRatings}
           ratingMatch={this.state.ratingMatch}
           userRating={this.state.userRating}
           deleteVisible={this.state.deleteVisible}
-          getRatings={this.showMovieInfoAfterDelete}
-          changeAfterSubmit={this.showMovieInfoAfterRating}
+          getRatings={this.getUserRatings}
           changePage={this.changePageview}
           />
          }
