@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Header = ({user, loginBtn, logoutBtn }) => {
@@ -10,7 +11,9 @@ const Header = ({user, loginBtn, logoutBtn }) => {
         <button className='login-out' onClick={logoutBtn}>Log Out</button>
       }
       {user === '' &&
+        <Link to={'/movies/login'}>
         <button className='login-out' onClick={loginBtn}>Login</button>
+        </Link>
       }
     </header>
   )
