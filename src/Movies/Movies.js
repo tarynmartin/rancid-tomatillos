@@ -7,7 +7,7 @@ const Movies = ({user, movies, error, showMovieInfo}) => {
 
   if (error !== '') {
     return <h2 className='message-bar'>{error}</h2>
-  } else if (user) {
+  } else if (user !== '') {
     return (
       <div>
         <h2 className='message-bar'>Hello {user}!</h2>
