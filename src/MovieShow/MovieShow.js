@@ -124,7 +124,7 @@ class MovieShow extends Component{
   }
 
   render() {
-    const { movieId, userId, changePage } = this.props;
+    const { userId, changePage } = this.props;
       return (
         <div className='movies-comments'>
           <div className='movie-show'>
