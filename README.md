@@ -3,7 +3,7 @@
 
 ### Abstract
 We created an app that allows users to rate movies, check out movie information, and add comments to movies when they are logged in. We used React JS, HTML, CSS, and Jest for testing.
-- This is the refactored version of the app, got [here](https://github.com/DougieDev/Rancid-Tomatillos-cd-tm) for the original finished app.
+- This is the refactored version of the app, go [here](https://github.com/DougieDev/Rancid-Tomatillos-cd-tm) for the original finished app.
 
 ### App in Action
 ![homepage and movie info page functionality](./assets/rotten-functionality.gif)
