@@ -3,6 +3,7 @@
 
 ### Abstract
 We created an app that allows users to rate movies, check out movie information, and add comments to movies when they are logged in. We used React JS, HTML, CSS, and Jest for testing.
+- This is the refactored version of the app, got [here](https://github.com/DougieDev/Rancid-Tomatillos-cd-tm) for the original finished app.
 
 ### App in Action
 ![homepage and movie info page functionality](./assets/rotten-functionality.gif)
@@ -32,10 +33,8 @@ We created an app that allows users to rate movies, check out movie information,
 - Testing was difficult to wrap our brains around and would like more practice in the future.
 
 ### Next Steps
-- Flesh out testing suites
+- Refactor and finish testing suites.
 - Complete iteration 7b
-- Refactor code to be cleaner - is there anything that can be moved from App to a different Component
-- Switch from CSS to SCSS
 - Create a link for the page title to take the user back to the homepage
 
 ### Authors
