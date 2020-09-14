@@ -4,6 +4,14 @@ import PropTypes from 'prop-types';
 import MovieCard from '../MovieCard/MovieCard';
 
 const Movies = ({user, movies, error, showMovieInfo}) => {
+  let allMovies = movies.map(movie => {
+      return (<MovieCard
+        movie={movie}
+        showMovieInfo={showMovieInfo}
+        key={movie.id}
+        />)
+    });
+
   return (
     <div>
       {error !== '' &&
@@ -13,15 +21,7 @@ const Movies = ({user, movies, error, showMovieInfo}) => {
         <h2 className='message-bar'>Hello {user}!</h2>
       }
       <section className="movies-container">
-        {
-          movies.map(movie => {
-            return (<MovieCard
-              movie={movie}
-              showMovieInfo={showMovieInfo}
-              key={movie.id}
-              />)
-          })
-        }
+        {allMovies}
       </section>
     </div>
   )

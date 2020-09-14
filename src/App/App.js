@@ -77,7 +77,6 @@ class App extends Component {
   }
 
   render() {
-    const page = this.state.pageView;
     return (
       <main className="App">
         <Header
@@ -91,7 +90,7 @@ class App extends Component {
         </Route>
         <Route exact path="/movies/login" render={() => {
             return (
-              (this.state.userName != '') ?
+              (this.state.userName !== '') ?
                 <Redirect to="/" />:
                 <Redirect to="/movies/login" />
               )
