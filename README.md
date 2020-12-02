@@ -16,7 +16,7 @@ We created an app that allows users to rate movies, check out movie information,
 3) In terminal, type `git clone [copied link from Github]`
 4) Move into the project file and run `npm install` and then `npm install prop-types`
 5) In packages.json, make sure that dependencies include react-router-dom. If you need to install it, in terminal enter 'npm install --save react-router-dom'
-6) Once all dependencies are downloaded, in terminal run 'npm start' - this should open a new window in your browser, allowing you to navigate throughout the site.
+6) Once all dependencies are downloaded, in terminal run 'npm start' - this should open a new window in your browser, allowing you to navigate throughout the site. To login, use username ken@turing.io and password 654321
 7) If you would like to check out the commenting functionality, go to this [repo](https://github.com/turingschool-examples/rancid-tomatillos-microservice) and follow the directions to run this local server on your computer.
 8) If you would like to run the testing functionality, go to the main project directory in terminal and run the following commands if needed:
   - 'npm install --save-dev @testing-library/react'
